@@ -1,0 +1,548 @@
+<!DOCTYPE html><html class="light" lang="es"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>EduTrip - Barcelona, Pirineos &amp; Port Aventura</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><!--UIPATH_EXTENSION_ID: conkfbpnllelocpogdmbilgmnkabjfmf-->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-fixed": "#dae2fd",
+                    "on-surface": "#0b1c30",
+                    "primary-fixed-dim": "#b4c5ff",
+                    "on-error": "#ffffff",
+                    "surface-bright": "#f8f9ff",
+                    "inverse-primary": "#b4c5ff",
+                    "surface-container-high": "#dce9ff",
+                    "on-secondary": "#ffffff",
+                    "outline": "#737686",
+                    "inverse-on-surface": "#eaf1ff",
+                    "secondary-fixed-dim": "#bec6e0",
+                    "secondary": "#565e74",
+                    "secondary-container": "#dae2fd",
+                    "outline-variant": "#c3c6d7",
+                    "surface": "#f8f9ff",
+                    "surface-dim": "#cbdbf5",
+                    "on-secondary-fixed": "#131b2e",
+                    "surface-container-highest": "#d3e4fe",
+                    "on-secondary-fixed-variant": "#3f465c",
+                    "inverse-surface": "#213145",
+                    "primary-container": "#2563eb",
+                    "error-container": "#ffdad6",
+                    "on-background": "#0b1c30",
+                    "tertiary-fixed": "#e0e3e5",
+                    "on-surface-variant": "#434655",
+                    "surface-variant": "#d3e4fe",
+                    "primary-fixed": "#dbe1ff",
+                    "on-primary-fixed-variant": "#003ea8",
+                    "on-primary-container": "#eeefff",
+                    "on-primary": "#ffffff",
+                    "on-secondary-container": "#5c647a",
+                    "on-primary-fixed": "#00174b",
+                    "primary": "#004ac6",
+                    "tertiary": "#525657",
+                    "tertiary-fixed-dim": "#c4c7c9",
+                    "on-tertiary": "#ffffff",
+                    "background": "#f8f9ff",
+                    "surface-tint": "#0053db",
+                    "tertiary-container": "#6b6e70",
+                    "surface-container": "#e5eeff",
+                    "on-tertiary-fixed": "#191c1e",
+                    "on-error-container": "#93000a",
+                    "surface-container-low": "#eff4ff",
+                    "on-tertiary-container": "#eff1f3",
+                    "on-tertiary-fixed-variant": "#444749",
+                    "error": "#ba1a1a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "container-max": "1280px",
+                    "stack-md": "16px",
+                    "margin-desktop": "48px",
+                    "margin-mobile": "16px",
+                    "gutter": "24px",
+                    "stack-sm": "8px",
+                    "stack-lg": "32px"
+            },
+            "fontFamily": {
+                    "body-md": [
+                            "Inter"
+                    ],
+                    "caption": [
+                            "Inter"
+                    ],
+                    "headline-xl": [
+                            "Inter"
+                    ],
+                    "headline-lg-mobile": [
+                            "Inter"
+                    ],
+                    "body-lg": [
+                            "Inter"
+                    ],
+                    "headline-lg": [
+                            "Inter"
+                    ],
+                    "label-md": [
+                            "Inter"
+                    ],
+                    "headline-md": [
+                            "Inter"
+                    ]
+            },
+            "fontSize": {
+                    "body-md": [
+                            "16px",
+                            {
+                                    "lineHeight": "1.6",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "caption": [
+                            "12px",
+                            {
+                                    "lineHeight": "1.4",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "headline-xl": [
+                            "48px",
+                            {
+                                    "lineHeight": "1.2",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "800"
+                            }
+                    ],
+                    "headline-lg-mobile": [
+                            "28px",
+                            {
+                                    "lineHeight": "1.3",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "body-lg": [
+                            "18px",
+                            {
+                                    "lineHeight": "1.6",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "headline-lg": [
+                            "32px",
+                            {
+                                    "lineHeight": "1.3",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "label-md": [
+                            "14px",
+                            {
+                                    "lineHeight": "1",
+                                    "letterSpacing": "0.05em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "headline-md": [
+                            "24px",
+                            {
+                                    "lineHeight": "1.4",
+                                    "fontWeight": "600"
+                            }
+                    ]
+            }
+    },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<!--UIPATH_EXTENSION_ID: conkfbpnllelocpogdmbilgmnkabjfmf--></head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md antialiased">
+<!-- TopNavBar -->
+<header class="bg-surface-container-lowest dark:bg-inverse-surface border-b border-outline-variant flat no shadows sticky top-0 z-50">
+<div class="flex justify-between items-center w-full px-margin-desktop h-16 max-w-container-max mx-auto">
+<!-- Brand -->
+<div class="flex items-center gap-4">
+<span class="text-headline-md font-headline-md font-extrabold text-primary dark:text-inverse-primary">Tottem Hub</span>
+</div>
+<!-- Navigation Links (Desktop) -->
+<nav class="hidden md:flex gap-8">
+<a class="text-primary font-bold border-b-2 border-primary pb-1 hover:text-primary transition-colors duration-200" href="#">Itinerario</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Pagos</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Alojamiento</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Presupuesto</a>
+</nav>
+<!-- Actions -->
+<div class="flex items-center gap-4">
+<button class="bg-primary-container text-on-primary-container font-label-md text-label-md py-2 px-4 rounded-full hover:bg-primary hover:text-on-primary transition-colors duration-200 hidden sm:block">Inscribirse</button>
+<button class="text-primary dark:text-primary-fixed hover:text-primary transition-colors duration-200 flex items-center justify-center p-2 rounded-full hover:bg-surface-container-high">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Hero Banner -->
+<section class="relative w-full h-auto py-16 md:py-24 bg-surface-container-high overflow-hidden flex items-center justify-center">
+<!-- Abstract Background Pattern / Illustration Placeholder -->
+<div class="absolute inset-0 opacity-20 pointer-events-none"></div>
+<div class="relative z-10 text-center px-6 max-w-5xl mx-auto flex flex-col items-center gap-6">
+<div class="w-16 h-16 bg-primary-container rounded-full flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-on-primary-container text-3xl fill">flight_takeoff</span>
+</div>
+<h1 class="font-headline-xl text-headline-lg-mobile md:text-headline-xl text-primary font-extrabold tracking-tight uppercase">PRÓXIMA EXPEDICIÓN 2026:<br>Barcelona, Pirineos &amp; Port Aventura</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant bg-surface-container-lowest/80 px-6 py-2 rounded-full backdrop-blur-sm shadow-sm inline-block">Exclusivo para alumnos de 4º ESO del IES IBN JALDUN</p>
+<button class="mt-2 bg-primary text-on-primary font-label-md text-label-md py-4 px-10 rounded-full shadow-md hover:bg-surface-tint transition-colors text-lg font-bold">
+    Inscribir a mi hij@
+</button>
+<div class="flex flex-wrap items-center justify-center gap-4 mt-4 text-on-surface-variant font-label-md text-sm bg-surface-container-lowest/60 px-6 py-3 rounded-full backdrop-blur-sm">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-primary text-[18px]">star</span> Gestión 100% Online</span>
+<span class="hidden sm:block text-outline-variant">|</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-primary text-[18px]">security</span> Seguridad Total</span>
+<span class="hidden sm:block text-outline-variant">|</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-primary text-[18px]">credit_card</span> Pago Fraccionado</span>
+</div>
+</div>
+<div class="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-background to-transparent"></div>
+</section>
+<!-- Main Layout Grid -->
+<main class="w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-stack-lg flex flex-col lg:flex-row gap-gutter relative">
+<!-- Main Content Column -->
+<div class="flex-1 flex flex-col gap-stack-lg">
+<!-- Trip Summary Info Bar -->
+<div class="flex flex-col sm:flex-row justify-between bg-surface-container-lowest rounded-xl p-6 shadow-sm border border-outline-variant gap-4">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary mt-1">location_on</span>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant uppercase mb-1">Destinos</p>
+<p class="font-body-lg text-body-lg text-on-surface font-semibold">Barcelona / Pirineos / Port Aventura</p>
+</div>
+</div>
+<div class="hidden sm:block w-px bg-outline-variant"></div>
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary mt-1">calendar_month</span>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant uppercase mb-1">Fecha</p>
+<p class="font-body-lg text-body-lg text-on-surface font-semibold">17/06/2026 (6 Días)</p>
+</div>
+</div>
+</div>
+<!-- Por qué viajar con nosotros Section -->
+<section class="flex flex-col gap-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-2xl">verified</span>
+<h2 class="font-headline-md text-headline-md text-on-surface font-bold">Por qué viajar con nosotros</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- Bloque Confianza -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-sm flex items-start gap-4 hover:shadow-md transition-shadow">
+<div class="w-12 h-12 rounded-full bg-surface-container-low flex items-center justify-center flex-shrink-0 text-primary">
+<span class="material-symbols-outlined text-[24px]">health_and_safety</span>
+</div>
+<div>
+<h3 class="font-headline-md text-body-lg font-bold text-on-surface mb-2">Viaja tranquilo</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Incluye seguro de asistencia médica y responsabilidad civil.</p>
+</div>
+</div>
+<!-- Facilidades -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-sm flex items-start gap-4 hover:shadow-md transition-shadow">
+<div class="w-12 h-12 rounded-full bg-surface-container-low flex items-center justify-center flex-shrink-0 text-primary">
+<span class="material-symbols-outlined text-[24px]">account_balance_wallet</span>
+</div>
+<div>
+<h3 class="font-headline-md text-body-lg font-bold text-on-surface mb-2">Financia el viaje sin estrés</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Divide el pago hasta en 4 cómodas cuotas o usa Plazox para fraccionar a tu ritmo.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Dates to Remember Section -->
+<section class="flex flex-col gap-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-2xl">event_note</span>
+<h2 class="font-headline-md text-headline-md text-on-surface font-bold">Fechas a recordar</h2>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-sm">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant">
+<th class="py-4 px-6 font-label-md text-label-md text-on-surface-variant font-semibold uppercase tracking-wider">Concepto</th>
+<th class="py-4 px-6 font-label-md text-label-md text-on-surface-variant font-semibold uppercase tracking-wider">Importe</th>
+<th class="py-4 px-6 font-label-md text-label-md text-on-surface-variant font-semibold uppercase tracking-wider">Antes de</th>
+</tr>
+</thead>
+<tbody class="font-body-md text-body-md text-on-surface">
+<tr class="border-b border-outline-variant/50 hover:bg-surface-bright transition-colors">
+<td class="py-4 px-6">
+<div class="flex items-center gap-2 font-semibold">
+<span class="material-symbols-outlined text-secondary text-sm">payments</span>
+                                            Reserva de plaza
+                                        </div>
+<div class="text-sm text-on-surface-variant mt-1">Necesaria para confirmar reserva</div>
+</td>
+<td class="py-4 px-6 font-semibold">200,00€</td>
+<td class="py-4 px-6">17/03/2026</td>
+</tr>
+<tr class="border-b border-outline-variant/50 hover:bg-surface-bright transition-colors">
+<td class="py-4 px-6">
+<div class="flex items-center gap-2 font-semibold">
+<span class="material-symbols-outlined text-secondary text-sm">payments</span>
+                                            2º Pago
+                                        </div>
+<div class="text-sm text-on-surface-variant mt-1">Correspondiente al tipo de viaje</div>
+</td>
+<td class="py-4 px-6 font-semibold">200,00€</td>
+<td class="py-4 px-6">17/04/2026</td>
+</tr>
+<tr class="hover:bg-surface-bright transition-colors">
+<td class="py-4 px-6">
+<div class="flex items-center gap-2 font-semibold">
+<span class="material-symbols-outlined text-secondary text-sm">payments</span>
+                                            Pago Final
+                                        </div>
+<div class="text-sm text-on-surface-variant mt-1">Último pago</div>
+</td>
+<td class="py-4 px-6 font-semibold">450,00€</td>
+<td class="py-4 px-6">17/05/2026</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<!-- Hero Image Section -->
+<div class="w-full h-64 md:h-96 rounded-xl overflow-hidden shadow-sm relative group">
+<img alt="Barcelona Landmark" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A sweeping, high-quality, bright and sunny panoramic view of the Sagrada Familia in Barcelona, Spain. The image should feature a clear blue sky, modern light-mode aesthetic, vibrant but natural colors. Focus on the architectural details against a serene background, evoking a sense of exciting educational travel. High contrast, clean, premium corporate travel style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDgSR-i86DBXAK9PBikcM34E1VxgGJdlvFCpnt1Fp-OQAq0pe8bveZqnjMjXtmOhznfakLZDN3eoK0ztagow9uC7EvKSJreH2O1iY7Os9-9S9Zv7dI0f3dLWZO1CGQxP5_n7j4xJSRUqLmTmKVIxjSDoDNusQeM83axff2INOH5qUqkSdWkGIWyglgjzy31glV7jTktvg5cHSG-yygPZCmhVWcm7e4aqCxfsJ-jxyHm2VRfcwRuy6Xv5O0XU885a8ezAOvtOVfz5I">
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+<p class="text-white font-headline-md text-headline-md font-semibold">Barcelona, España</p>
+</div>
+</div>
+<!-- Itinerary Section -->
+<section class="flex flex-col gap-6 mt-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-2xl transform -rotate-45">route</span>
+<h2 class="font-headline-md text-headline-md text-on-surface font-bold">¡Conoce el itinerario!</h2>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-sm">
+<!-- Day Header -->
+<div class="bg-surface-container-low px-6 py-4 flex items-center justify-between border-b border-outline-variant cursor-pointer hover:bg-surface-container-highest transition-colors">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">today</span>
+<h3 class="font-headline-md text-body-lg font-bold text-on-surface">Día 1: ¡Bienvenidos a Barcelona!</h3>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">expand_less</span>
+</div>
+<!-- Day Content (Timeline) -->
+<div class="p-6 bg-surface-container-lowest">
+<p class="font-label-md text-label-md text-on-surface-variant mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">event</span>
+                            Miércoles, 17 Junio, 2026
+                        </p>
+<div class="relative border-l-2 border-outline-variant/30 ml-3 pl-8 flex flex-col gap-8 pb-4">
+<!-- Timeline Item 1 -->
+<div class="relative">
+<div class="absolute -left-[41px] top-1 w-5 h-5 bg-surface-container-lowest border-2 border-primary rounded-full z-10 shadow-sm flex items-center justify-center">
+<div class="w-2 h-2 bg-primary rounded-full"></div>
+</div>
+<h4 class="font-headline-md text-body-lg font-bold text-on-surface mb-1">10:00h - Llegada al hotel</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">Llegada al alojamiento designado. Check-in y distribución de las habitaciones para el grupo escolar.</p>
+</div>
+<!-- Timeline Item 2 -->
+<div class="relative">
+<div class="absolute -left-[41px] top-1 w-5 h-5 bg-surface-container-lowest border-2 border-outline-variant rounded-full z-10 shadow-sm"></div>
+<h4 class="font-headline-md text-body-lg font-bold text-on-surface mb-1">12:30h - Visita Guiada: Sagrada Familia</h4>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4">
+                                    Inicio de nuestro recorrido cultural por la ciudad condal. Nuestra primera parada será la emblemática obra maestra de Antoni Gaudí. Acompañados por un guía experto local, los estudiantes descubrirán los secretos arquitectónicos, la historia y la simbología de las impresionantes fachadas.
+                                </p>
+<div class="bg-surface-container-low p-4 rounded-lg border border-outline-variant/50 text-sm text-on-surface-variant mt-2">
+<p class="mb-2"><strong>Nota importante:</strong> Se ruega puntualidad. La entrada incluye auriculares para seguir las explicaciones del guía sin problemas en zonas concurridas.</p>
+<p class="">Posteriormente, disfrutaremos de tiempo libre para almorzar (no incluido) en los alrededores, antes de continuar nuestro paseo por el Passeig de Gràcia para admirar las famosas Casa Batlló y La Pedrera desde el exterior.</p>
+</div>
+</div>
+<!-- Timeline Item 3 -->
+<div class="relative">
+<div class="absolute -left-[41px] top-1 w-5 h-5 bg-surface-container-lowest border-2 border-outline-variant rounded-full z-10 shadow-sm"></div>
+<h4 class="font-headline-md text-body-lg font-bold text-on-surface mb-1">18:00h - Regreso y Cena</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">Regreso al hotel para descansar. Cena de grupo incluida en el alojamiento y tiempo libre supervisado en las instalaciones.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Sidebar (Shared Components + Extra Cards) -->
+<aside class="w-full lg:w-80 flex-shrink-0 flex flex-col gap-stack-lg relative">
+<!-- SideNavBar Component Equivalent -->
+<div class="bg-surface-container-low dark:bg-surface-dim rounded-xl p-6 shadow-sm border border-outline-variant flex flex-col gap-4">
+<div class="text-center mb-2">
+<h3 class="font-headline-md text-headline-md font-bold text-on-surface">Inscríbete ahora</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Últimas plazas para Barcelona</p>
+</div>
+<button class="w-full bg-primary-container text-on-primary-container hover:bg-primary hover:text-on-primary transition-all duration-200 font-label-md text-label-md font-bold py-3 px-4 rounded-full shadow-sm">
+                    Ver Presupuesto
+                </button>
+<button class="w-full bg-surface-container-lowest border border-outline-variant text-on-surface hover:bg-surface-container-highest transition-all duration-200 font-label-md text-label-md font-bold py-3 px-4 rounded-full shadow-sm flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[20px]">mail</span>
+                    Contactar
+                </button>
+</div>
+<!-- Registration CTA Card -->
+<div class="bg-inverse-surface text-surface-container-lowest rounded-xl p-6 shadow-md flex flex-col items-center text-center gap-4 relative overflow-hidden">
+<div class="absolute top-0 right-0 w-24 h-24 bg-primary-container/20 rounded-full blur-2xl -mr-10 -mt-10 pointer-events-none"></div>
+<h3 class="font-headline-md text-headline-md font-bold">Inscríbete ¡ahora!</h3>
+<p class="font-body-md text-body-md text-surface-container-highest/90 text-sm">
+                    Apúntate a nuestro viaje y comienza a disfrutar de todas nuestras ventajas.
+                </p>
+<button class="mt-2 bg-primary-container text-on-primary-container hover:bg-primary-fixed hover:text-on-primary-fixed-variant transition-colors duration-200 font-label-md text-label-md font-bold py-2.5 px-6 rounded-full w-full shadow-sm">
+                    Inscribirse en viaje
+                </button>
+</div>
+<!-- Accommodations -->
+<div class="flex flex-col gap-3">
+<h3 class="font-headline-md text-body-lg font-bold text-on-surface flex items-center gap-2 border-b border-outline-variant pb-2">
+<span class="material-symbols-outlined text-primary">hotel</span>
+                    Tu alojamiento
+                </h3>
+<!-- Hotel Card 1 -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant overflow-hidden shadow-sm hover:shadow-md transition-shadow group">
+<div class="h-32 bg-surface-variant relative overflow-hidden">
+<img alt="Hotel Caribe" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A bright, high-quality photograph of a modern hotel exterior or resort pool area with palm trees. Sunny daylight, light-mode aesthetic, corporate but welcoming travel vibe, clear blue sky. Focus on cleanliness and premium feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCLS-nhTn3AMPG-Wa56cHqxbYr1VZBxHZ_5K9Png8IYnb5_EbjHhzWC5n4MbVLpZ2fWWNCNckFuo2WZJta2nREChksSInd_u5k2IrDgDyZafdp0HZPJZ631DHxld6tWXl08A64HJ7QF7lHbyrKU9uZTcXiv3bbuWeyAYG9JVq-VvojnXeoTRO3TDFHHf-4RXWhmR-9xrU0kRDnki201B-jD5GmiIDBH8KBHfv-ckiHVupJpnRSZAW6_7OMDa0_9HcZljGjLYhDRu0o">
+</div>
+<div class="p-4">
+<h4 class="font-headline-md text-body-lg font-semibold text-on-surface">Hotel Caribe Resort</h4>
+<p class="font-caption text-caption text-on-surface-variant flex items-center gap-1 mt-1 mb-3">
+<span class="material-symbols-outlined text-[14px]">location_on</span>
+                            Port Aventura / 4 Estrellas
+                        </p>
+<button class="w-full py-2 border border-primary text-primary hover:bg-primary-container/10 font-label-md text-label-md rounded-lg transition-colors flex items-center justify-center gap-2">
+                            Ver más
+                            <span class="material-symbols-outlined text-[18px]">visibility</span>
+</button>
+</div>
+</div>
+<!-- Hotel Card 2 -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant overflow-hidden shadow-sm hover:shadow-md transition-shadow group">
+<div class="h-32 bg-surface-variant relative overflow-hidden">
+<img alt="Hotel El Paso" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A clean, modern hotel room interior with neatly made beds, bright natural light coming through a window. Light-mode aesthetic, inviting, professional and safe atmosphere typical of a good school trip accommodation. Soft whites and blue accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC26Sm0oF02Qq8RzknFbr8nraMDxXmFc1GsejDa-3eSFYwuANbqSGOLgk6jq_3c3nVXeGDPwozZ3PoNIj_3WGNgmFBsb_TGbnwmp7IFdtjGTOx0ysVzlH_ccadFgroZDt6Aa5BMvPUIvI0Dal24Y0FFk1L9Zbr4W9a0r2lx3lCc_2cV1u7b84mU7Kd4LHDIcv6sr3rYdSOpMnP_pji0fZcaH3onHkuFNDZqkr-q1J3MphKzHz19PFGejH-GtoaxkHGhQicMlVdSQH8">
+</div>
+<div class="p-4">
+<h4 class="font-headline-md text-body-lg font-semibold text-on-surface">Hotel El Paso</h4>
+<p class="font-caption text-caption text-on-surface-variant flex items-center gap-1 mt-1 mb-3">
+<span class="material-symbols-outlined text-[14px]">location_on</span>
+                            Port Aventura / 4 Estrellas
+                        </p>
+<button class="w-full py-2 border border-primary text-primary hover:bg-primary-container/10 font-label-md text-label-md rounded-lg transition-colors flex items-center justify-center gap-2">
+                            Ver más
+                            <span class="material-symbols-outlined text-[18px]">visibility</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Benefits -->
+<div class="flex flex-col gap-3">
+<h3 class="font-headline-md text-body-lg font-bold text-on-surface flex items-center gap-2 border-b border-outline-variant pb-2">
+                    Beneficios
+                </h3>
+<div class="grid grid-cols-3 gap-2">
+<div class="bg-surface-container-low border border-outline-variant rounded-lg p-3 flex flex-col items-center text-center gap-2 hover:bg-surface-container-high transition-colors">
+<div class="w-8 h-8 rounded-full bg-surface-container-lowest flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-primary text-[20px]">security</span>
+</div>
+<span class="font-caption text-[11px] font-semibold text-on-surface leading-tight">Seguridad 24h</span>
+</div>
+<div class="bg-surface-container-low border border-outline-variant rounded-lg p-3 flex flex-col items-center text-center gap-2 hover:bg-surface-container-high transition-colors">
+<div class="w-8 h-8 rounded-full bg-surface-container-lowest flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-primary text-[20px]">explore</span>
+</div>
+<span class="font-caption text-[11px] font-semibold text-on-surface leading-tight">Guía local</span>
+</div>
+<div class="bg-surface-container-low border border-outline-variant rounded-lg p-3 flex flex-col items-center text-center gap-2 hover:bg-surface-container-high transition-colors">
+<div class="w-8 h-8 rounded-full bg-surface-container-lowest flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-primary text-[20px]">restaurant</span>
+</div>
+<span class="font-caption text-[11px] font-semibold text-on-surface leading-tight">Todo incluido</span>
+</div>
+</div>
+</div>
+<!-- Useful Links -->
+<div class="flex flex-col gap-3">
+<h3 class="font-headline-md text-body-lg font-bold text-on-surface flex items-center gap-2 border-b border-outline-variant pb-2">
+<span class="material-symbols-outlined text-primary">menu_book</span>
+                    Te interesa
+                </h3>
+<div class="flex flex-col gap-2">
+<a class="bg-surface-container-lowest border border-outline-variant p-3 rounded-lg flex justify-between items-center hover:bg-surface-bright transition-colors group shadow-sm" href="#">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Barcelona: Clima actual</span>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">chevron_right</span>
+</a>
+<a class="bg-surface-container-lowest border border-outline-variant p-3 rounded-lg flex justify-between items-center hover:bg-surface-bright transition-colors group shadow-sm" href="#">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Preguntas Frecuentes</span>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">chevron_right</span>
+</a>
+<a class="bg-surface-container-lowest border border-outline-variant p-3 rounded-lg flex justify-between items-center hover:bg-surface-bright transition-colors group shadow-sm" href="#">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Consejos: Seguro de viaje</span>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">chevron_right</span>
+</a>
+</div>
+</div>
+<!-- Info Summary Card -->
+<div class="bg-surface-container-highest border border-outline-variant rounded-xl p-5 shadow-sm text-sm text-on-surface-variant">
+<div class="flex items-center gap-3 mb-3">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-secondary-container">info</span>
+</div>
+<h4 class="font-headline-md text-body-lg font-bold text-on-surface">A tener en cuenta</h4>
+</div>
+<p class="mb-3">Se establecerá un plan de tres pagos básicos del viaje. Siendo el primer pago su reserva de plaza.</p>
+<p class="">Un paso intermedio para usuarios en listas para inscribirse de inmediato.</p>
+</div>
+</aside>
+</main>
+<!-- Contact CTA Section -->
+<div class="w-full bg-surface-container-high border-t border-outline-variant">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+<div>
+<h3 class="font-headline-md text-headline-md font-bold text-on-surface">¿Tienes dudas?</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Estamos aquí para ayudarte en cada paso.</p>
+</div>
+<a class="flex items-center justify-center gap-2 bg-[#25D366] text-white hover:bg-[#128C7E] transition-colors py-3 px-8 rounded-full font-label-md text-label-md font-bold shadow-md w-full sm:w-auto" href="#">
+<span class="material-symbols-outlined">chat</span>
+Habla con nosotros por WhatsApp
+</a>
+</div>
+</div>
+<!-- Footer -->
+<footer class="bg-inverse-surface dark:bg-surface-container-lowest w-full py-stack-lg px-margin-desktop flex flex-col md:flex-row justify-between items-center border-t border-outline-variant flat mt-auto">
+<div class="text-body-lg font-headline-md text-surface-container-lowest mb-4 md:mb-0">
+            EduTrip
+        </div>
+<div class="flex flex-wrap justify-center gap-6 mb-4 md:mb-0">
+<a class="font-caption text-caption text-tertiary-fixed-dim hover:text-primary-fixed transition-colors" href="#">Privacidad</a>
+<a class="font-caption text-caption text-tertiary-fixed-dim hover:text-primary-fixed transition-colors" href="#">Seguro de Viaje</a>
+<a class="font-caption text-caption text-tertiary-fixed-dim hover:text-primary-fixed transition-colors" href="#">Términos</a>
+<a class="font-caption text-caption text-tertiary-fixed-dim hover:text-primary-fixed transition-colors" href="#">Contacto</a>
+</div>
+<div class="font-caption text-caption text-primary-fixed-dim text-center md:text-right">
+            © 2024 EduTrip School Travel. Todos los derechos reservados.
+        </div>
+</footer>
+
+
+</body></html>

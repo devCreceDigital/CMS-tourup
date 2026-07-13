@@ -1,0 +1,501 @@
+<!DOCTYPE html><html class="light" lang="es"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Scholar Journey - Gestión de Viajes</title>
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet">
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface": "#f8f9ff",
+                        "on-error": "#ffffff",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "outline": "#737686",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "on-surface-variant": "#434655",
+                        "on-error-container": "#93000a",
+                        "secondary-fixed-dim": "#bec6e0",
+                        "tertiary-fixed": "#e0e3e5",
+                        "surface-container-high": "#dce9ff",
+                        "on-secondary-fixed": "#131b2e",
+                        "on-primary-container": "#eeefff",
+                        "on-primary": "#ffffff",
+                        "inverse-primary": "#b4c5ff",
+                        "surface-tint": "#0053db",
+                        "on-tertiary-fixed": "#191c1e",
+                        "surface-container-highest": "#d3e4fe",
+                        "surface-container": "#e5eeff",
+                        "outline-variant": "#c3c6d7",
+                        "secondary": "#565e74",
+                        "on-secondary": "#ffffff",
+                        "inverse-surface": "#213145",
+                        "tertiary": "#525657",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-tertiary-container": "#eff1f3",
+                        "surface-bright": "#f8f9ff",
+                        "primary": "#004ac6",
+                        "on-background": "#0b1c30",
+                        "tertiary-fixed-dim": "#c4c7c9",
+                        "primary-container": "#2563eb",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed": "#00174b",
+                        "surface-variant": "#d3e4fe",
+                        "secondary-fixed": "#dae2fd",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface": "#0b1c30",
+                        "background": "#f8f9ff",
+                        "surface-dim": "#cbdbf5",
+                        "on-tertiary-fixed-variant": "#444749",
+                        "secondary-container": "#dae2fd",
+                        "on-secondary-fixed-variant": "#3f465c",
+                        "error": "#ba1a1a",
+                        "on-secondary-container": "#5c647a",
+                        "primary-fixed": "#dbe1ff",
+                        "tertiary-container": "#6b6e70",
+                        "error-container": "#ffdad6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-max": "1280px",
+                        "stack-md": "16px",
+                        "stack-lg": "32px",
+                        "stack-sm": "8px",
+                        "margin-mobile": "16px",
+                        "gutter": "24px",
+                        "margin-desktop": "48px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "caption": ["Inter"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "headline-xl": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "label-md": ["14px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                        "caption": ["12px", {"lineHeight": "1.4", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9ff;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        .card-shadow {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+        }
+    </style>
+</head>
+<body class="flex min-h-screen text-on-surface">
+<!-- SideNavBar (Authority: JSON) -->
+<aside class="h-full w-64 fixed left-0 top-0 bg-on-background dark:bg-on-background flex flex-col py-6 px-4 shadow-lg z-50">
+<!-- Brand Identity -->
+<div class="mb-10 px-2 flex items-center gap-3">
+<div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-surface" style="font-variation-settings: 'FILL' 1;">school</span>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-surface">Scholar Journey</h1>
+<p class="text-xs text-outline-variant opacity-80 uppercase tracking-widest">Agency Dashboard</p>
+</div>
+</div>
+<!-- Navigation Links -->
+<nav class="flex-grow space-y-2">
+<!-- Programas -->
+<a class="flex items-center gap-3 px-4 py-3 text-surface-variant hover:text-surface transition-colors hover:bg-primary-container/20 rounded-lg group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">assignment</span>
+<span class="font-label-md text-label-md">Programas</span>
+</a>
+<!-- Pasajeros -->
+<a class="flex items-center gap-3 px-4 py-3 text-surface-variant hover:text-surface transition-colors hover:bg-primary-container/20 rounded-lg group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">group</span>
+<span class="font-label-md text-label-md">Pasajeros</span>
+</a>
+<!-- Viajes (ACTIVE) -->
+<a class="flex items-center gap-3 px-4 py-3 bg-primary text-on-primary rounded-lg transition-colors scale-[0.98] shadow-md" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">explore</span>
+<span class="font-label-md text-label-md">Viajes</span>
+</a>
+<!-- Tiendas -->
+<a class="flex items-center gap-3 px-4 py-3 text-surface-variant hover:text-surface transition-colors hover:bg-primary-container/20 rounded-lg group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">shopping_bag</span>
+<span class="font-label-md text-label-md">Tiendas</span>
+</a>
+<!-- Sistema -->
+<a class="flex items-center gap-3 px-4 py-3 text-surface-variant hover:text-surface transition-colors hover:bg-primary-container/20 rounded-lg group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">settings</span>
+<span class="font-label-md text-label-md">Sistema</span>
+</a>
+</nav>
+<!-- Footer Avatar -->
+<div class="mt-auto pt-6 border-t border-outline/20 px-2 flex items-center gap-3">
+<img class="w-10 h-10 rounded-full border-2 border-primary/30" data-alt="A professional agency logo with clean geometric shapes in blue and white, set against a dark premium background, representing academic reliability and global travel expertise." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDfeYLldSCEohhR2TkwYJpa3RtW6PHxyzN3wrhJCNWzYUA1s3ElP0b5W7hsIpcTUGSt1qny8mTi6sqHuPP6ooRDD9Qh5MF5s0ZZf0XllHDAB64H9gjQ69I02FmNkLHZGeCeogbObXFndI6IQJN9YqcrxRBbLrWQC6idxc_aV8I5hcGqcx0YTVpaTsKKVCLxHJ4ils8D4YuqAFG1ma-TLjWSO_3OoaSZzzJRHjc1l3T6263HbCyYb5CF">
+<div class="overflow-hidden">
+<p class="text-surface font-semibold text-sm truncate">Admin Scholar</p>
+<p class="text-outline-variant text-xs truncate">Premium Partner</p>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-64 flex-1 flex flex-col min-h-screen">
+<!-- TopAppBar (Authority: JSON) -->
+<header class="flex flex-col w-full px-margin-desktop pt-4 bg-surface border-b border-outline-variant">
+<div class="flex items-center justify-between h-16 mb-2">
+<div class="flex flex-col">
+<nav class="flex items-center gap-2 text-xs text-secondary mb-1">
+<a class="hover:text-primary transition-colors" href="#">Inicio</a>
+<span class="material-symbols-outlined text-[12px]">chevron_right</span>
+<span class="font-bold text-on-background">Viajes</span>
+</nav>
+<h2 class="font-headline-lg text-headline-lg font-bold text-on-background">Gestión de Viajes</h2>
+</div>
+<div class="flex items-center gap-4">
+<!-- Search Bar -->
+<div class="relative hidden lg:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container rounded-lg border-none focus:ring-2 focus:ring-primary w-64 text-sm" placeholder="Buscar viajes..." type="text">
+</div>
+<button class="flex items-center gap-2 px-5 py-2.5 bg-primary text-on-primary rounded-lg hover:bg-primary-container transition-all shadow-md active:scale-95">
+<span class="material-symbols-outlined">add</span>
+<span class="font-label-md text-label-md uppercase tracking-wider">Nuevo Viaje</span>
+</button>
+<div class="flex items-center gap-2 ml-2">
+<button class="p-2 text-secondary hover:bg-surface-variant rounded-full transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="p-2 text-secondary hover:bg-surface-variant rounded-full transition-colors">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Tabbed Navigation (Authority: Prompt Override) -->
+<nav class="flex items-center gap-8 mt-2 overflow-x-auto no-scrollbar">
+<a class="text-primary font-bold border-b-2 border-primary pb-2 whitespace-nowrap" href="#">Información</a>
+<a class="text-secondary hover:text-primary transition-colors pb-2 whitespace-nowrap" href="#">Transporte</a>
+<a class="text-secondary hover:text-primary transition-colors pb-2 whitespace-nowrap" href="#">Alojamiento</a>
+<a class="text-secondary hover:text-primary transition-colors pb-2 whitespace-nowrap" href="#">Tarifas</a>
+<a class="text-secondary hover:text-primary transition-colors pb-2 whitespace-nowrap" href="#">Viajeros</a>
+<a class="text-secondary hover:text-primary transition-colors pb-2 whitespace-nowrap" href="#">Documentación</a>
+</nav>
+</header>
+<!-- Content Area -->
+<div class="flex-1 p-margin-desktop bg-background space-y-stack-lg">
+<!-- Stats Bento Grid -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<div class="bg-surface-container-lowest p-6 rounded-xl card-shadow border border-outline-variant flex items-center justify-between hover:border-primary transition-colors">
+<div>
+<p class="text-secondary text-sm font-medium mb-1">Viajes Activos</p>
+<p class="text-headline-md font-bold text-on-background">42</p>
+</div>
+<div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">map</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl card-shadow border border-outline-variant flex items-center justify-between hover:border-primary transition-colors">
+<div>
+<p class="text-secondary text-sm font-medium mb-1">Próximas Salidas</p>
+<p class="text-headline-md font-bold text-on-background">12</p>
+</div>
+<div class="w-12 h-12 bg-secondary-container rounded-full flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">flight_takeoff</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl card-shadow border border-outline-variant flex items-center justify-between hover:border-primary transition-colors">
+<div>
+<p class="text-secondary text-sm font-medium mb-1">Viajeros Totales</p>
+<p class="text-headline-md font-bold text-on-background">1,840</p>
+</div>
+<div class="w-12 h-12 bg-tertiary-container/10 rounded-full flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">groups</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl card-shadow border border-outline-variant flex items-center justify-between hover:border-primary transition-colors">
+<div>
+<p class="text-secondary text-sm font-medium mb-1">Pendientes de Pago</p>
+<p class="text-headline-md font-bold text-error">15%</p>
+</div>
+<div class="w-12 h-12 bg-error-container rounded-full flex items-center justify-center text-on-error-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">payments</span>
+</div>
+</div>
+</section>
+<!-- Filters Bar -->
+<div class="flex flex-col md:flex-row gap-4 items-center justify-between bg-white p-4 rounded-xl border border-outline-variant">
+<div class="flex items-center gap-3 w-full md:w-auto">
+<span class="text-sm font-semibold text-on-background mr-2">Filtros:</span>
+<select class="rounded-lg border-outline-variant text-sm focus:ring-primary focus:border-primary">
+<option>Estado: Todos</option>
+<option>Activo</option>
+<option>Completo</option>
+<option>Pendiente</option>
+</select>
+<select class="rounded-lg border-outline-variant text-sm focus:ring-primary focus:border-primary">
+<option>Año: 2024</option>
+<option>2023</option>
+</select>
+</div>
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-2 px-4 py-2 border border-outline-variant rounded-lg text-sm font-medium text-secondary hover:bg-surface transition-colors">
+<span class="material-symbols-outlined text-sm">filter_list</span>
+                        Filtros Avanzados
+                    </button>
+<button class="flex items-center gap-2 px-4 py-2 border border-outline-variant rounded-lg text-sm font-medium text-secondary hover:bg-surface transition-colors">
+<span class="material-symbols-outlined text-sm">download</span>
+                        Exportar CSV
+                    </button>
+</div>
+</div>
+<!-- Trips Grid -->
+<div class="grid grid-cols-1 xl:grid-cols-2 gap-gutter">
+<!-- Trip Card 1 -->
+<div class="bg-white rounded-xl border border-outline-variant overflow-hidden hover:shadow-xl transition-all duration-300 group flex flex-col md:flex-row h-full">
+<div class="relative w-full md:w-56 h-48 md:h-auto overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A wide panoramic view of the Sagrada Familia in Barcelona during a sunny afternoon, with clean blue skies and modern urban architecture, styled with a high-end corporate travel photography feel, using vibrant blues and warm highlights." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXwhYFUZh_jGAQVbRVu6hKlP9XP3G-qYf6lGPwyYOnolXLCM11Y2Lul7LwIOk75llRg0-wxl6J8OaJrlV8uU4L761I7xX32pav5bONV6Eh6bZHCS1Yz9jbG0OIiCsgrIlqm9vM41gLNcTzKTCi6YJdI4LjHBbWq07QF4hQyqpt_jtCtVgpYQZopU8Hb9Entb6XjsG9PRhQ180JjjX15xoCnaTysMLrPSSqbKl_dFbWra08P9A4S1z7">
+<div class="absolute top-3 left-3 px-3 py-1 bg-surface-container-lowest/90 backdrop-blur-sm rounded-full text-[10px] font-bold uppercase tracking-widest text-primary shadow-sm">
+                            V-2024-08
+                        </div>
+</div>
+<div class="flex-1 p-6 flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start mb-2">
+<h3 class="text-xl font-bold text-on-background">Barcelona, Pirineos &amp; Port Aventura</h3>
+<span class="px-3 py-1 bg-green-100 text-green-700 text-[10px] font-bold rounded-full uppercase tracking-tighter">Activo</span>
+</div>
+<div class="flex items-center gap-4 text-sm text-secondary mb-4">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">calendar_month</span>
+                                    15 - 22 Jun, 2024
+                                </div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">schedule</span>
+                                    8 Días
+                                </div>
+</div>
+<!-- Metrics -->
+<div class="space-y-3 mb-6">
+<div>
+<div class="flex justify-between text-xs mb-1">
+<span class="font-semibold text-secondary">Viajeros Inscritos</span>
+<span class="font-bold text-on-background">124 / 150</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 82%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-xs mb-1">
+<span class="font-semibold text-secondary">Recaudación</span>
+<span class="font-bold text-on-background">€78,450 / €95,000</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-on-background" style="width: 65%"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between pt-4 border-t border-outline-variant">
+<div class="flex -space-x-2">
+<img class="w-8 h-8 rounded-full border-2 border-white" data-alt="Close up portrait of a professional male educator smiling, wearing a simple blue polo shirt, clean lighting, blurred outdoor background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBw897n4W2uW9cyD5gcXmsIOCaWa-qzyo-GuDza7SyAWj5VxBuHdE6vFvIXjUWAZA1LONx3xy3_YLmXun_29u018K_Fw_3STPGpogpnmrbaQFlMDBvFZfI7wtQm1eykJ7Dt6UsTHVL2QbxZ_Qxj8vsMrxbJsPoOB1fPiPCNBlEwCwftGRp02C4p3bOu_C32zGDdPZuI4Loo8s4JL3dw6t1fiZtZpIbKQYYKdM_7SJUYyWkJkxJhD9sc">
+<img class="w-8 h-8 rounded-full border-2 border-white" data-alt="Close up portrait of a friendly female teacher with glasses, soft natural light, professional attire." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDuUji-dm46iaJUjdZe6h3tKTtUYO_20fR3kCFZLUPwDFU-9ITyYpu1CTNFbOgcKdY4tnSjr_X_4JQdeNQEYSOQ0jw_arrY-raHr-qB43OzBQQIq7rauJQsyiWv2OToO6_jgvPwOo8cMw3Bmn3KSlEg3lmESlWvkFnRKAE-rHZdaf899KXs4pnG5xsTx5jxuxPCby1TvdMSDLCph6TK6ly8s4Hr4zzSm1-_XDHK6Y2_2CKOdfk4FUYW">
+<div class="w-8 h-8 rounded-full bg-surface-container border-2 border-white flex items-center justify-center text-[10px] font-bold text-secondary">+2</div>
+</div>
+<div class="flex gap-2">
+<button class="p-2 hover:bg-surface-variant rounded-lg transition-colors text-secondary" title="Exportar">
+<span class="material-symbols-outlined text-lg">download</span>
+</button>
+<button class="px-4 py-2 bg-on-background text-surface text-sm font-bold rounded-lg hover:opacity-90 transition-opacity">
+                                    Configurar
+                                </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Trip Card 2 -->
+<div class="bg-white rounded-xl border border-outline-variant overflow-hidden hover:shadow-xl transition-all duration-300 group flex flex-col md:flex-row h-full">
+<div class="relative w-full md:w-56 h-48 md:h-auto overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A beautiful scenic view of the French Alps in summer, with lush green valleys, snow-capped peaks in the distance, and a clear blue lake reflecting the mountains, capturing the peaceful majesty of nature." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDH9L43jpa3V6pKOl0R6xwXh5IyMHc13kAySGZ62OVNw61NQeJlxb5ThrAHEOgUX-l--VyTzz57YdRaa3QVB0_mvZH7LMu1fXiAaEFIOyM7RZRpgFfSzk0iYrTi-9lPuONhQj3nljgGxO5nhWhW0ju9iqI-kFtxf5LtibT6NEMRcMjKB_pTae4z8f87k6VsJW0hXoyee5ypuWbJvGUY42nwlr8Z2h4VJkT6BjZKknaHkOX4QC8Jgiep">
+<div class="absolute top-3 left-3 px-3 py-1 bg-surface-container-lowest/90 backdrop-blur-sm rounded-full text-[10px] font-bold uppercase tracking-widest text-primary shadow-sm">
+                            V-2024-12
+                        </div>
+</div>
+<div class="flex-1 p-6 flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start mb-2">
+<h3 class="text-xl font-bold text-on-background">Inmersión Lingüística en Londres</h3>
+<span class="px-3 py-1 bg-primary/10 text-primary text-[10px] font-bold rounded-full uppercase tracking-tighter">Completo</span>
+</div>
+<div class="flex items-center gap-4 text-sm text-secondary mb-4">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">calendar_month</span>
+                                    10 - 24 Jul, 2024
+                                </div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">schedule</span>
+                                    14 Días
+                                </div>
+</div>
+<div class="space-y-3 mb-6">
+<div>
+<div class="flex justify-between text-xs mb-1">
+<span class="font-semibold text-secondary">Viajeros Inscritos</span>
+<span class="font-bold text-on-background">80 / 80</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 100%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-xs mb-1">
+<span class="font-semibold text-secondary">Recaudación</span>
+<span class="font-bold text-on-background">€112,000 / €112,000</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-on-background" style="width: 100%"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between pt-4 border-t border-outline-variant">
+<div class="flex -space-x-2">
+<img class="w-8 h-8 rounded-full border-2 border-white" data-alt="Close up portrait of a serious but kind male supervisor in his 40s, outdoor lighting, educational environment background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQ6gYVDUco6bvMZciZLICOz7BcOFcQnGGL8HoUH04ikgS41hQ3yiOPY5cHU43kdYqrgQubo_mtUyGbEYxIISuOMie_vskwyGwdWKHPcljZcPOHKSSe2APOwKNY-dQ42016kb1KhC8ZPbEgzK7tfpB0yQez42qGlNKHIB8BNEPbetfZekcr4rp6jTnuZQSFnnUnUr0qf3ZzDdu3YbgCIugsOXJp-tlUNWOCDmbWB3Q3HwKiGBHcWgnV">
+<div class="w-8 h-8 rounded-full bg-surface-container border-2 border-white flex items-center justify-center text-[10px] font-bold text-secondary">+1</div>
+</div>
+<div class="flex gap-2">
+<button class="p-2 hover:bg-surface-variant rounded-lg transition-colors text-secondary" title="Exportar">
+<span class="material-symbols-outlined text-lg">download</span>
+</button>
+<button class="px-4 py-2 bg-on-background text-surface text-sm font-bold rounded-lg hover:opacity-90 transition-opacity">
+                                    Configurar
+                                </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Trip Card 3 -->
+<div class="bg-white rounded-xl border border-outline-variant overflow-hidden hover:shadow-xl transition-all duration-300 group flex flex-col md:flex-row h-full">
+<div class="relative w-full md:w-56 h-48 md:h-auto overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Modern high-tech planetarium exterior with glowing geometric architecture under a starry night sky, suggesting a futuristic educational science trip, cinematic lighting, sleek surfaces." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3ZgbSuVla6Eec-bohx5q3FVKnMiNoihIBkqnWZ5xGyB-aKrcEQMR0P4Ob5ciB_5TUYobGziyrH-dTX-DUqdbjQlqdsQxwLgV1uvBGC02qVjWUYEjZWRUWdlipQTjnGsybRGoWeyS792u2Dqnqfo2YndCBQUhm1Aqrle-pxdPkSYPUJs5AD0K_2xxC1zANaZEa-GNU_5M_MMUgIivTPtEKIc_vOpbE8fLefhRnhNmdKUHML8OioQ5_">
+<div class="absolute top-3 left-3 px-3 py-1 bg-surface-container-lowest/90 backdrop-blur-sm rounded-full text-[10px] font-bold uppercase tracking-widest text-primary shadow-sm">
+                            V-2024-15
+                        </div>
+</div>
+<div class="flex-1 p-6 flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start mb-2">
+<h3 class="text-xl font-bold text-on-background">Aventura Científica - Toulouse</h3>
+<span class="px-3 py-1 bg-secondary-container text-on-secondary-container text-[10px] font-bold rounded-full uppercase tracking-tighter">En Venta</span>
+</div>
+<div class="flex items-center gap-4 text-sm text-secondary mb-4">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">calendar_month</span>
+                                    05 - 12 Sep, 2024
+                                </div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">schedule</span>
+                                    7 Días
+                                </div>
+</div>
+<div class="space-y-3 mb-6">
+<div>
+<div class="flex justify-between text-xs mb-1">
+<span class="font-semibold text-secondary">Viajeros Inscritos</span>
+<span class="font-bold text-on-background">15 / 60</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 25%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-xs mb-1">
+<span class="font-semibold text-secondary">Recaudación</span>
+<span class="font-bold text-on-background">€12,500 / €48,000</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-on-background" style="width: 26%"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between pt-4 border-t border-outline-variant">
+<div class="flex -space-x-2">
+<img class="w-8 h-8 rounded-full border-2 border-white" data-alt="Portrait of a young enthusiastic male science teacher, professional modern look, lab setting background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_0QZ1oaaeb1xecqAsReulua2oRLt6r4y28NBzBQGfShAJVMhBmQATXqzmkMAgvNZaMB_Xk0iPEtvo8VM9RCSYcYHunwfhqgsSRsX1rCt2O_tesN439nJtpm73wbO5ji7xEy-bn5l_Bb9jP2BOPIeoRvhyl6FliuZBFIp-qcB_lWrv9KxsxWJNB502g-rfPhLAM6CIfG7lh48Zin1FvoJPjHKGwrcJGfGhQLhgezuxnTNGbawhBqF8">
+</div>
+<div class="flex gap-2">
+<button class="p-2 hover:bg-surface-variant rounded-lg transition-colors text-secondary" title="Exportar">
+<span class="material-symbols-outlined text-lg">download</span>
+</button>
+<button class="px-4 py-2 bg-on-background text-surface text-sm font-bold rounded-lg hover:opacity-90 transition-opacity">
+                                    Configurar
+                                </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Empty State / Add New Placeholder -->
+<div class="bg-surface-container border-2 border-dashed border-outline-variant rounded-xl flex flex-col items-center justify-center p-8 text-center min-h-[250px] group cursor-pointer hover:border-primary transition-colors">
+<div class="w-16 h-16 rounded-full bg-white flex items-center justify-center mb-4 shadow-sm group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-primary text-3xl">add</span>
+</div>
+<h4 class="font-bold text-on-background mb-1">Crear nuevo itinerario</h4>
+<p class="text-sm text-secondary max-w-[240px]">Comienza a diseñar una nueva experiencia educativa para tus estudiantes.</p>
+</div>
+</div>
+</div>
+</main>
+<!-- Floating Micro-interaction Logic -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabs = document.querySelectorAll('header nav a');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', (e) => {
+                    tabs.forEach(t => {
+                        t.classList.remove('text-primary', 'font-bold', 'border-b-2', 'border-primary');
+                        t.classList.add('text-secondary');
+                    });
+                    tab.classList.add('text-primary', 'font-bold', 'border-b-2', 'border-primary');
+                    tab.classList.remove('text-secondary');
+                });
+            });
+        });
+    </script>
+</body></html>

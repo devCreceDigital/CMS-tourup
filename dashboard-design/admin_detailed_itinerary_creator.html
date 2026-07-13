@@ -1,0 +1,408 @@
+<!DOCTYPE html><html class="light" lang="es"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Creador de Itinerario - Scholar Journey</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><!--UIPATH_EXTENSION_ID: conkfbpnllelocpogdmbilgmnkabjfmf-->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-error-container": "#93000a",
+                    "inverse-on-surface": "#eaf1ff",
+                    "on-tertiary-fixed-variant": "#444749",
+                    "on-secondary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "primary": "#004ac6",
+                    "on-error": "#ffffff",
+                    "secondary-fixed-dim": "#bec6e0",
+                    "inverse-primary": "#b4c5ff",
+                    "surface-container-high": "#dce9ff",
+                    "background": "#f8f9ff",
+                    "surface-container": "#e5eeff",
+                    "secondary-fixed": "#dae2fd",
+                    "on-tertiary-fixed": "#191c1e",
+                    "primary-container": "#2563eb",
+                    "surface-dim": "#cbdbf5",
+                    "surface-container-lowest": "#ffffff",
+                    "on-background": "#0b1c30",
+                    "secondary-container": "#dae2fd",
+                    "surface-container-highest": "#d3e4fe",
+                    "surface-variant": "#d3e4fe",
+                    "tertiary-container": "#6b6e70",
+                    "surface-tint": "#0053db",
+                    "on-secondary-fixed-variant": "#3f465c",
+                    "surface-bright": "#f8f9ff",
+                    "on-primary-fixed-variant": "#003ea8",
+                    "tertiary-fixed-dim": "#c4c7c9",
+                    "on-secondary-fixed": "#131b2e",
+                    "on-tertiary": "#ffffff",
+                    "error": "#ba1a1a",
+                    "on-primary-fixed": "#00174b",
+                    "outline": "#737686",
+                    "inverse-surface": "#213145",
+                    "on-surface": "#0b1c30",
+                    "on-surface-variant": "#434655",
+                    "tertiary": "#525657",
+                    "on-primary-container": "#eeefff",
+                    "secondary": "#565e74",
+                    "primary-fixed-dim": "#b4c5ff",
+                    "on-primary": "#ffffff",
+                    "outline-variant": "#c3c6d7",
+                    "on-tertiary-container": "#eff1f3",
+                    "surface-container-low": "#eff4ff",
+                    "primary-fixed": "#dbe1ff",
+                    "surface": "#f8f9ff",
+                    "tertiary-fixed": "#e0e3e5"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-mobile": "16px",
+                    "stack-md": "16px",
+                    "container-max": "1280px",
+                    "stack-sm": "8px",
+                    "stack-lg": "32px",
+                    "margin-desktop": "48px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Inter"],
+                    "label-md": ["Inter"],
+                    "caption": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-xl": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-md": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                    "label-md": ["14px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "caption": ["12px", {"lineHeight": "1.4", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "headline-xl": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                    "headline-lg": ["32px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        .timeline-connector::before {
+            content: '';
+            position: absolute;
+            left: 19px;
+            top: 40px;
+            bottom: -20px;
+            width: 2px;
+            background-color: theme('colors.outline-variant');
+        }
+        .timeline-connector-last::before {
+            display: none;
+        }
+
+        .active-day-indicator {
+            position: absolute;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background-color: theme('colors.primary');
+            border-radius: 0 4px 4px 0;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md">
+<!-- Sidebar Navigation -->
+<aside class="h-full w-64 fixed left-0 top-0 bg-on-background shadow-lg flex flex-col py-6 px-4 z-50">
+<div class="mb-10 px-2 flex items-center gap-3">
+<div class="w-10 h-10 bg-primary-container rounded-lg flex items-center justify-center text-white font-bold text-headline-md">S</div>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-surface">Scholar Journey</h1>
+<p class="text-xs text-surface-variant/70 uppercase tracking-widest">Agency Dashboard</p>
+</div>
+</div>
+<nav class="flex-1 space-y-2">
+<!-- Programas -->
+<a class="flex items-center gap-3 px-4 py-3 text-surface-variant hover:text-surface transition-colors hover:bg-primary-container/20 rounded-lg" href="#">
+<span class="material-symbols-outlined">assignment</span>
+<span class="font-label-md text-label-md">Programas</span>
+</a>
+<!-- Pasajeros -->
+<a class="flex items-center gap-3 px-4 py-3 text-surface-variant hover:text-surface transition-colors hover:bg-primary-container/20 rounded-lg" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-md text-label-md">Pasajeros</span>
+</a>
+<!-- Viajes (ACTIVE) -->
+<a class="flex items-center gap-3 px-4 py-3 bg-primary text-on-primary rounded-lg transition-colors scale-[0.98]" href="#">
+<span class="material-symbols-outlined">explore</span>
+<span class="font-label-md text-label-md">Viajes</span>
+</a>
+<!-- Tiendas -->
+<a class="flex items-center gap-3 px-4 py-3 text-surface-variant hover:text-surface transition-colors hover:bg-primary-container/20 rounded-lg" href="#">
+<span class="material-symbols-outlined">shopping_bag</span>
+<span class="font-label-md text-label-md">Tiendas</span>
+</a>
+<!-- Sistema -->
+<a class="flex items-center gap-3 px-4 py-3 text-surface-variant hover:text-surface transition-colors hover:bg-primary-container/20 rounded-lg" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md">Sistema</span>
+</a>
+</nav>
+<div class="mt-auto p-2">
+<div class="flex items-center gap-3 p-2 bg-surface-container/10 rounded-xl border border-outline-variant/20">
+<img class="w-10 h-10 rounded-full border-2 border-primary-fixed" data-alt="A professional corporate portrait of an agency manager, high-quality lighting, neutral background, sharp focus, professional attire, modern aesthetic for an educational travel platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAEWibk0T9jFA6wiQPtuFDWBkVIsTqdrXxwwUMlqkTooYjsOZtLpyHbBsVEy0l5v-WgELAUAsgjRDnmiHLCQvjW4Yh3OB1QLAiilcx9pCNo1yZGcyDA1anNM08EtYijPKZCQiwzZlb-fr3C2QYTVCy3KFX-LBHzXwXjeXtcK9vuFrOclt3M_JzVd4CWFmK9OI_iVdidTRfGD30QDtIuzFSnwV02r0ndmXgyoal7a80T2AM6fQsgHHw4">
+<div class="overflow-hidden">
+<p class="text-surface font-semibold text-sm truncate">Admin Scholar</p>
+<p class="text-surface-variant/60 text-xs truncate">Super User</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Top App Bar & Secondary Nav -->
+<header class="flex flex-col w-[calc(100%-16rem)] ml-64 px-margin-desktop pt-4 bg-surface sticky top-0 z-40 border-b border-outline-variant">
+<div class="flex items-center justify-between mb-4">
+<div>
+<h2 class="font-headline-lg text-headline-lg font-bold text-on-background">Información de Viaje</h2>
+<p class="text-on-surface-variant text-body-md italic">Barcelona, Pirineos &amp; Port Aventura</p>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative">
+<input class="pl-10 pr-4 py-2 bg-surface-container-low border border-outline-variant rounded-full text-sm focus:ring-2 focus:ring-primary focus:border-transparent outline-none w-64" placeholder="Buscar en el viaje..." type="text">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container rounded-full transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container rounded-full transition-colors">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Sub-Navigation for Trip -->
+<nav class="flex gap-8 mt-2 overflow-x-auto hide-scrollbar">
+<a class="text-secondary hover:text-primary transition-colors pb-2 font-label-md" href="#">Información</a>
+<a class="text-secondary hover:text-primary transition-colors pb-2 font-label-md" href="#">Transporte</a>
+<a class="text-secondary hover:text-primary transition-colors pb-2 font-label-md" href="#">Alojamiento</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-2 font-label-md whitespace-nowrap" href="#">Itinerario</a>
+<a class="text-secondary hover:text-primary transition-colors pb-2 font-label-md" href="#">Tarifas</a>
+<a class="text-secondary hover:text-primary transition-colors pb-2 font-label-md" href="#">Viajeros</a>
+<a class="text-secondary hover:text-primary transition-colors pb-2 font-label-md" href="#">Documentación</a>
+</nav>
+</header>
+<!-- Main Content Area -->
+<main class="ml-64 w-[calc(100%-16rem)] p-margin-desktop min-h-screen">
+<div class="max-w-container-max mx-auto">
+<div class="flex items-end justify-between mb-stack-lg">
+<div>
+<h3 class="font-headline-xl text-headline-xl text-on-background">Creador de Itinerario</h3>
+<p class="text-on-surface-variant font-body-lg">Organiza el cronograma detallado de actividades para este programa escolar.</p>
+</div>
+<div class="flex gap-4">
+<button class="px-6 py-2.5 border border-primary text-primary font-semibold rounded-lg hover:bg-primary-container/10 transition-all flex items-center gap-2">
+<span class="material-symbols-outlined">save</span>
+                        Guardar borrador
+                    </button>
+<button class="px-6 py-2.5 bg-primary text-white font-semibold rounded-lg hover:bg-primary-container shadow-lg hover:shadow-primary/20 transition-all flex items-center gap-2">
+<span class="material-symbols-outlined">rocket_launch</span>
+                        Publicar itinerario
+                    </button>
+</div>
+</div>
+<!-- Editor Layout: 2 Columns -->
+<div class="grid grid-cols-12 gap-gutter items-start">
+<!-- Left Column: Day Navigation -->
+<div class="col-span-3 sticky top-48">
+<div class="bg-white border border-outline-variant rounded-xl overflow-hidden shadow-sm">
+<div class="p-4 border-b border-outline-variant bg-surface-container-low flex items-center justify-between">
+<span class="font-label-md text-on-surface uppercase">Días del viaje</span>
+<span class="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full font-bold">5 Días</span>
+</div>
+<div class="p-2 space-y-1">
+<button class="w-full text-left p-3 rounded-lg flex items-center gap-3 relative transition-all bg-primary-container/10 text-primary font-bold">
+<div class="active-day-indicator"></div>
+<span class="material-symbols-outlined text-sm">calendar_today</span>
+<div>
+<p class="text-sm">Día 1</p>
+<p class="text-[10px] opacity-60">Llegada y Ciudad</p>
+</div>
+</button>
+<button class="w-full text-left p-3 rounded-lg flex items-center gap-3 hover:bg-surface-container-low transition-all text-on-surface-variant">
+<span class="material-symbols-outlined text-sm">calendar_today</span>
+<div>
+<p class="text-sm">Día 2</p>
+<p class="text-[10px] opacity-60">Museos &amp; Cultura</p>
+</div>
+</button>
+<button class="w-full text-left p-3 rounded-lg flex items-center gap-3 hover:bg-surface-container-low transition-all text-on-surface-variant">
+<span class="material-symbols-outlined text-sm">calendar_today</span>
+<div>
+<p class="text-sm">Día 3</p>
+<p class="text-[10px] opacity-60">Pirineo Catalán</p>
+</div>
+</button>
+<button class="w-full text-left p-3 rounded-lg flex items-center gap-3 hover:bg-surface-container-low transition-all text-on-surface-variant">
+<span class="material-symbols-outlined text-sm">calendar_today</span>
+<div>
+<p class="text-sm">Día 4</p>
+<p class="text-[10px] opacity-60">Port Aventura</p>
+</div>
+</button>
+<button class="w-full text-left p-3 rounded-lg flex items-center gap-3 hover:bg-surface-container-low transition-all text-on-surface-variant">
+<span class="material-symbols-outlined text-sm">calendar_today</span>
+<div>
+<p class="text-sm">Día 5</p>
+<p class="text-[10px] opacity-60">Despedida</p>
+</div>
+</button>
+</div>
+<div class="p-2">
+<button class="w-full py-3 flex items-center justify-center gap-2 border-2 border-dashed border-outline-variant rounded-lg text-secondary hover:border-primary hover:text-primary transition-all">
+<span class="material-symbols-outlined">add</span>
+<span class="text-sm font-semibold">Añadir día</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Right Column: Timeline Detail -->
+<div class="col-span-9 space-y-stack-md pb-24">
+<!-- Day Summary Header -->
+<div class="bg-white border border-outline-variant rounded-xl p-6 shadow-sm flex items-center justify-between">
+<div class="flex items-center gap-6">
+<div class="w-16 h-16 bg-primary-container text-white rounded-2xl flex flex-col items-center justify-center">
+<span class="text-2xl font-bold">01</span>
+<span class="text-[10px] uppercase tracking-wider font-bold">Mayo</span>
+</div>
+<div>
+<h4 class="font-headline-md text-headline-md">Día 1: Barcelona Modernista</h4>
+<p class="text-on-surface-variant">Llegada al Aeropuerto El Prat y primer contacto con la arquitectura de Gaudí.</p>
+</div>
+</div>
+<button class="p-2 text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined">edit</span>
+</button>
+</div>
+<!-- Activities List -->
+<div class="space-y-6 relative ml-4"><!-- Activity 1 -->
+<div class="relative pl-12 timeline-connector">
+<div class="absolute left-0 top-0 w-10 h-10 bg-white border-2 border-primary rounded-full flex items-center justify-center z-10 shadow-sm text-primary">
+<span class="material-symbols-outlined">flight_land</span>
+</div>
+<div class="pb-8">
+<div class="flex items-center gap-2 mb-1">
+<span class="font-bold text-on-background">09:30 h - Llegada y Transfer</span>
+</div>
+<p class="text-on-surface-variant text-sm leading-relaxed">Recepción del grupo en la terminal T1 del Aeropuerto de Barcelona-El Prat. Traslado en autobús privado hacia el hotel para realizar el check-in temprano y distribución de equipaje.</p>
+</div>
+</div>
+<!-- Activity 2 -->
+<div class="relative pl-12 timeline-connector">
+<div class="absolute left-0 top-0 w-10 h-10 bg-white border-2 border-primary rounded-full flex items-center justify-center z-10 shadow-sm text-primary">
+<span class="material-symbols-outlined">restaurant</span>
+</div>
+<div class="pb-8">
+<div class="flex items-center gap-2 mb-1">
+<span class="font-bold text-on-background">13:00 h - Almuerzo de Bienvenida</span>
+</div>
+<p class="text-on-surface-variant text-sm leading-relaxed">Almuerzo en el Restaurante El Salitre. Menú cerrado para grupos con especialidades locales. Opción vegetariana y celiaca disponible bajo previo aviso para los estudiantes que lo requieran.</p>
+</div>
+</div>
+<!-- Activity 3 -->
+<div class="relative pl-12 timeline-connector">
+<div class="absolute left-0 top-0 w-10 h-10 bg-white border-2 border-primary rounded-full flex items-center justify-center z-10 shadow-sm text-primary">
+<span class="material-symbols-outlined">museum</span>
+</div>
+<div class="pb-8">
+<div class="flex items-center gap-2 mb-1">
+<span class="font-bold text-on-background">16:00 h - Visita Guiada: Sagrada Familia</span>
+</div>
+<p class="text-on-surface-variant text-sm leading-relaxed mb-4">Inicio de nuestro recorrido cultural por la ciudad condal. Nuestra primera parada será la emblemática obra maestra de Antoni Gaudí. Acompañados por un guía experto local, los estudiantes descubrirán los secretos arquitectónicos, la historia y la simbología de las impresionantes fachadas.</p>
+<div class="bg-surface-container-low p-4 rounded-lg border border-outline-variant/20">
+<p class="text-sm text-on-surface-variant">
+<strong class="text-primary">Nota importante:</strong> Se ruega puntualidad. La entrada incluye auriculares para seguir las explicaciones del guía sin problemas en zonas concurridas. Taller de geometría incluido para alumnos de secundaria.
+            </p>
+</div>
+</div>
+</div>
+<!-- Activity 4 -->
+<div class="relative pl-12 timeline-connector-last">
+<div class="absolute left-0 top-0 w-10 h-10 bg-white border-2 border-primary rounded-full flex items-center justify-center z-10 shadow-sm text-primary">
+<span class="material-symbols-outlined">hotel</span>
+</div>
+<div class="pb-8">
+<div class="flex items-center gap-2 mb-1">
+<span class="font-bold text-on-background">20:00 h - Cena y Alojamiento</span>
+</div>
+<p class="text-on-surface-variant text-sm leading-relaxed">Regreso al Generator Barcelona para descansar. Cena de grupo incluida en el alojamiento y tiempo libre supervisado en las instalaciones comunes antes del descanso nocturno.</p>
+</div>
+</div>
+<!-- Add Activity Button -->
+<div class="relative pl-12">
+<button class="w-full py-6 flex flex-col items-center justify-center gap-2 border-2 border-dashed border-outline-variant rounded-xl text-secondary hover:border-primary hover:text-primary transition-all hover:bg-white bg-surface-container-low/30">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined">add</span>
+</div>
+<span class="font-bold text-sm">Añadir actividad al Día 1</span>
+<p class="text-xs opacity-60">Escoge entre Transporte, Comida, Actividad o Alojamiento</p>
+</button>
+</div></div>
+</div>
+</div>
+</div>
+</main>
+<!-- Contextual FAB for adding activity (Quick Action) -->
+<button class="fixed bottom-8 right-8 w-14 h-14 bg-primary text-on-primary rounded-full shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all z-50">
+<span class="material-symbols-outlined text-3xl">add</span>
+</button>
+<script>
+        // Micro-interactions
+        document.querySelectorAll('button, a').forEach(elem => {
+            elem.addEventListener('mousedown', () => {
+                elem.style.transform = 'scale(0.96)';
+            });
+            elem.addEventListener('mouseup', () => {
+                elem.style.transform = '';
+            });
+            elem.addEventListener('mouseleave', () => {
+                elem.style.transform = '';
+            });
+        });
+
+        // Simple tab switching simulation
+        const dayButtons = document.querySelectorAll('.col-span-3 button:not(.border-dashed)');
+        dayButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                dayButtons.forEach(b => {
+                    b.classList.remove('bg-primary-container/10', 'text-primary', 'font-bold');
+                    b.classList.add('text-on-surface-variant');
+                    const indicator = b.querySelector('.active-day-indicator');
+                    if (indicator) indicator.remove();
+                });
+                btn.classList.add('bg-primary-container/10', 'text-primary', 'font-bold');
+                btn.classList.remove('text-on-surface-variant');
+                const indicator = document.createElement('div');
+                indicator.className = 'active-day-indicator';
+                btn.appendChild(indicator);
+            });
+        });
+    </script>
+</body></html>

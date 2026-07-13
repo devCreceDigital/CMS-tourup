@@ -1,0 +1,176 @@
+/* ============================================================
+   Scholar Journey Dashboard — Design System
+   Based on DESIGN.md and dashboard-design mockups
+   ============================================================ */
+
+:root {
+  --color-surface: #f8f9ff;
+  --color-surface-container-low: #eff4ff;
+  --color-surface-container: #e5eeff;
+  --color-surface-container-high: #dce9ff;
+  --color-surface-container-highest: #d3e4fe;
+  --color-surface-container-lowest: #ffffff;
+  --color-primary: #2563eb;
+  --color-on-primary: #ffffff;
+  --color-primary-container: #004ac6;
+  --color-on-background: #0b1c30;
+  --color-on-surface-variant: #434655;
+  --color-secondary: #565e74;
+  --color-secondary-container: #dae2fd;
+  --color-outline: #737686;
+  --color-outline-variant: #c3c6d7;
+  --color-error: #ba1a1a;
+  --color-surface-variant: #d3e4fe;
+  --sidebar-gradient: linear-gradient(180deg, #0b1c30 0%, #00174b 100%);
+}
+
+/* --- Scrollbar --- */
+.custom-scrollbar::-webkit-scrollbar { width: 6px; }
+.custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+.custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+
+/* --- Card shadow --- */
+.card-shadow {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+}
+
+/* --- Sidebar gradient --- */
+.sidebar-gradient {
+  background: linear-gradient(180deg, #0b1c30 0%, #00174b 100%);
+}
+
+/* --- Alerts --- */
+.alert {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+}
+
+.alert-success {
+  background-color: #d1fae5;
+  color: #065f46;
+  border-color: #a7f3d0;
+}
+
+.alert-error, .alert-danger {
+  background-color: #fee2e2;
+  color: #991b1b;
+  border-color: #fca5a5;
+}
+
+.alert-warning {
+  background-color: #fef3c7;
+  color: #92400e;
+  border-color: #fde68a;
+}
+
+.alert-info {
+  background-color: #dbeafe;
+  color: #1e40af;
+  border-color: #93c5fd;
+}
+
+/* --- Material Symbols defaults --- */
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* --- Sidebar nav link active indicator --- */
+.nav-link-active {
+  background-color: var(--color-primary);
+  color: white;
+  border-radius: 0.5rem;
+  transform: scale(0.98);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.nav-link-active span.material-symbols-outlined {
+  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+/* --- Spinner --- */
+.spinner {
+  display: inline-block;
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 2px solid #e5e7eb;
+  border-top-color: #2563eb;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* --- Progress bar --- */
+.progress-bar {
+  height: 0.5rem;
+  background-color: #e5eeff;
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.progress-bar .progress-fill {
+  height: 100%;
+  border-radius: 9999px;
+  transition: width 0.3s ease;
+}
+
+/* --- Hide scrollbar utility --- */
+.hide-scrollbar::-webkit-scrollbar { display: none; }
+.hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* --- Itinerary timeline connector --- */
+.timeline-connector::before {
+  content: '';
+  position: absolute;
+  left: 19px;
+  top: 40px;
+  bottom: 0;
+  width: 2px;
+  background-color: var(--color-outline-variant);
+}
+.timeline-connector-last::before { display: none; }
+
+/* --- Active day indicator --- */
+.active-day-indicator {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 4px;
+  height: 100%;
+  background-color: var(--color-primary-container);
+  border-radius: 0 4px 4px 0;
+}
+
+/* --- Mobile sidebar drawer --- */
+@media (max-width: 1023px) {
+  .sidebar-drawer {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+  .sidebar-drawer.open {
+    transform: translateX(0);
+  }
+}
+
+/* --- Table hover row actions --- */
+.row-actions {
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+tr:hover .row-actions,
+tbody tr:hover .row-actions {
+  opacity: 1;
+}

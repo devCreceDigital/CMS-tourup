@@ -1,0 +1,477 @@
+<!DOCTYPE html><html class="light" lang="es"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Viajeros - Scholar Journey Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed": "#e0e3e5",
+                        "secondary-container": "#dae2fd",
+                        "on-background": "#0b1c30",
+                        "surface-container-low": "#eff4ff",
+                        "on-secondary": "#ffffff",
+                        "background": "#f8f9ff",
+                        "on-secondary-container": "#5c647a",
+                        "tertiary-fixed-dim": "#c4c7c9",
+                        "tertiary": "#525657",
+                        "surface-container-high": "#dce9ff",
+                        "on-tertiary-fixed-variant": "#444749",
+                        "surface": "#f8f9ff",
+                        "secondary": "#565e74",
+                        "primary": "#004ac6",
+                        "on-secondary-fixed-variant": "#3f465c",
+                        "on-primary-fixed": "#00174b",
+                        "surface-tint": "#0053db",
+                        "surface-container": "#e5eeff",
+                        "on-tertiary-container": "#eff1f3",
+                        "primary-fixed": "#dbe1ff",
+                        "on-secondary-fixed": "#131b2e",
+                        "on-primary-container": "#eeefff",
+                        "inverse-surface": "#213145",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "surface-container-highest": "#d3e4fe",
+                        "outline-variant": "#c3c6d7",
+                        "surface-dim": "#cbdbf5",
+                        "primary-container": "#2563eb",
+                        "on-primary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "error": "#ba1a1a",
+                        "on-tertiary-fixed": "#191c1e",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-variant": "#d3e4fe",
+                        "secondary-fixed": "#dae2fd",
+                        "outline": "#737686",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-tertiary": "#ffffff",
+                        "on-surface-variant": "#434655",
+                        "on-error-container": "#93000a",
+                        "tertiary-container": "#6b6e70",
+                        "inverse-primary": "#b4c5ff",
+                        "secondary-fixed-dim": "#bec6e0",
+                        "on-surface": "#0b1c30",
+                        "surface-bright": "#f8f9ff",
+                        "on-error": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-md": "16px",
+                        "stack-sm": "8px",
+                        "gutter": "24px",
+                        "margin-mobile": "16px",
+                        "container-max": "1280px",
+                        "stack-lg": "32px",
+                        "margin-desktop": "48px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-md": ["Inter"],
+                        "caption": ["Inter"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                        "headline-xl": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "label-md": ["14px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "caption": ["12px", {"lineHeight": "1.4", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .sidebar-gradient {
+            background: linear-gradient(180deg, #0b1c30 0%, #00174b 100%);
+        }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-background text-on-surface overflow-hidden h-screen flex">
+<!-- SideNavBar Anchor -->
+<aside class="sidebar-gradient h-full w-64 fixed left-0 top-0 flex flex-col py-6 px-4 shadow-lg z-50">
+<div class="flex items-center gap-3 mb-10 px-2">
+<div class="w-10 h-10 bg-primary-container rounded-lg flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-2xl">school</span>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-surface">Scholar Journey</h1>
+<p class="text-[10px] text-surface-variant/70 tracking-widest uppercase">Agency Dashboard</p>
+</div>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 text-surface-variant hover:bg-primary-container/20 rounded-lg transition-colors group" href="#">
+<span class="material-symbols-outlined">assignment</span>
+<span class="font-label-md text-label-md">Programas</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-surface-variant hover:bg-primary-container/20 rounded-lg transition-colors group" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-md text-label-md">Pasajeros</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-primary text-on-primary rounded-lg transition-all scale-[0.98]" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">explore</span>
+<span class="font-label-md text-label-md">Viajes</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-surface-variant hover:bg-primary-container/20 rounded-lg transition-colors group" href="#">
+<span class="material-symbols-outlined">shopping_bag</span>
+<span class="font-label-md text-label-md">Tiendas</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-surface-variant hover:bg-primary-container/20 rounded-lg transition-colors group" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md">Sistema</span>
+</a>
+</nav>
+<div class="mt-auto pt-6 border-t border-surface-variant/10">
+<div class="flex items-center gap-3 px-2">
+<div class="w-10 h-10 rounded-full bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a travel agency manager, mid-40s, smiling warmly, wearing a crisp white shirt and navy blazer. The background is a blurred office environment with soft morning light, reflecting a trustworthy and organized corporate aesthetic consistent with a high-end educational travel platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrtt5tjegzlTeg-mEDLn2ICC88rK0gfGz3KR7IaoaW7r-kaPjylSw5dCwJE4ASgnZLsqYvu2J00ONXwrLXsEEt3xqyTFv2G2DAjUaPz4VXUn1emt6i7teBAswWGG52LkgAKBPYjjGLFdwxyc-7nA3JH90WsDQ70viYCLj-ocCtQTGc9svFkjA0EytfJ8IoAZp7jsZBuAF23C7kb5uGmmPnnUpiDFxsGdOI5ECQ9mNg-ipYsu56gkBD">
+</div>
+<div class="flex-1">
+<p class="text-white font-bold text-sm">Elena Martínez</p>
+<p class="text-surface-variant/60 text-xs">Admin</p>
+</div>
+<button class="text-surface-variant hover:text-white">
+<span class="material-symbols-outlined text-xl">logout</span>
+</button>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 flex-1 flex flex-col min-h-screen">
+<!-- TopAppBar Anchor -->
+<header class="w-full bg-surface border-b border-outline-variant px-margin-desktop pt-4 flex flex-col shrink-0">
+<div class="flex justify-between items-center mb-6">
+<div>
+<nav class="flex items-center gap-2 text-caption text-secondary mb-1">
+<span>Viajes</span>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<span>Configuración</span>
+</nav>
+<h2 class="font-headline-lg text-headline-lg font-bold text-on-background">Barcelona, Pirineos &amp; Port Aventura</h2>
+</div>
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-2 px-4 py-2 border border-outline-variant rounded-lg hover:bg-surface-container-low transition-colors text-on-surface">
+<span class="material-symbols-outlined">map</span>
+<span class="font-label-md text-label-md">Ver Itinerario</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-2 border border-outline-variant rounded-lg hover:bg-surface-container-low transition-colors text-on-surface">
+<span class="material-symbols-outlined">download</span>
+<span class="font-label-md text-label-md">Exportar</span>
+</button>
+<div class="w-[1px] h-6 bg-outline-variant mx-2"></div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-low transition-colors text-secondary">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</div>
+</div>
+<!-- Tab Navigation Shell -->
+<nav class="flex gap-8">
+<a class="text-secondary hover:text-primary transition-colors pb-2 font-label-md text-label-md" href="#">Información</a>
+<a class="text-secondary hover:text-primary transition-colors pb-2 font-label-md text-label-md" href="#">Transporte</a>
+<a class="text-secondary hover:text-primary transition-colors pb-2 font-label-md text-label-md" href="#">Alojamiento</a>
+<a class="text-secondary hover:text-primary transition-colors pb-2 font-label-md text-label-md" href="#">Tarifas</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-2 font-label-md text-label-md" href="#">Viajeros</a>
+<a class="text-secondary hover:text-primary transition-colors pb-2 font-label-md text-label-md" href="#">Documentación</a>
+</nav>
+</header>
+<!-- Dynamic Content Canvas -->
+<div class="p-gutter flex-1 overflow-y-auto custom-scrollbar bg-[#f8f9ff]">
+<div class="max-w-container-max mx-auto space-y-gutter">
+<!-- Summary Header Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant shadow-sm flex items-center gap-4 group hover:shadow-md transition-shadow">
+<div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-2xl">groups</span>
+</div>
+<div>
+<p class="text-caption text-secondary font-medium">Total Viajeros</p>
+<h3 class="text-headline-md font-bold text-on-background">124</h3>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant shadow-sm flex items-center gap-4 group hover:shadow-md transition-shadow">
+<div class="w-12 h-12 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-2xl">check_circle</span>
+</div>
+<div>
+<p class="text-caption text-secondary font-medium">Confirmados</p>
+<h3 class="text-headline-md font-bold text-on-background">98</h3>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant shadow-sm flex items-center gap-4 group hover:shadow-md transition-shadow">
+<div class="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center text-amber-600 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-2xl">hourglass_empty</span>
+</div>
+<div>
+<p class="text-caption text-secondary font-medium">Pendientes</p>
+<h3 class="text-headline-md font-bold text-on-background">26</h3>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant shadow-sm flex items-center gap-4 group hover:shadow-md transition-shadow">
+<div class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center text-secondary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-2xl">list_alt</span>
+</div>
+<div>
+<p class="text-caption text-secondary font-medium">Lista de Espera</p>
+<h3 class="text-headline-md font-bold text-on-background">5</h3>
+</div>
+</div>
+</div>
+<!-- Action Row & Filters -->
+<div class="bg-surface-container-lowest p-4 rounded-xl border border-outline-variant flex flex-wrap items-center justify-between gap-4">
+<div class="flex flex-1 min-w-[300px] items-center gap-4">
+<div class="relative flex-1">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface rounded-lg border border-outline-variant focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-body-md outline-none" placeholder="Buscar viajero por nombre o DNI..." type="text">
+</div>
+<select class="bg-surface border border-outline-variant rounded-lg px-4 py-2 text-body-md focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none cursor-pointer">
+<option>Todos los Estados</option>
+<option>Confirmado</option>
+<option>Pendiente</option>
+<option>Cancelado</option>
+</select>
+<select class="bg-surface border border-outline-variant rounded-lg px-4 py-2 text-body-md focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none cursor-pointer">
+<option>Todos los Cursos</option>
+<option>1º Bachillerato A</option>
+<option>1º Bachillerato B</option>
+<option>2º Bachillerato</option>
+</select>
+</div>
+<div class="flex items-center gap-3">
+<button class="bg-primary text-on-primary px-5 py-2 rounded-lg font-label-md text-label-md flex items-center gap-2 hover:bg-primary/90 transition-all shadow-sm active:scale-95">
+<span class="material-symbols-outlined text-lg">add</span>
+                            Añadir Viajero
+                        </button>
+<button class="bg-surface border border-primary text-primary px-5 py-2 rounded-lg font-label-md text-label-md flex items-center gap-2 hover:bg-primary-container/10 transition-all">
+<span class="material-symbols-outlined text-lg">file_download</span>
+                            Exportar Lista
+                        </button>
+</div>
+</div>
+<!-- Travelers Table -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant overflow-hidden shadow-sm">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant">
+<th class="px-6 py-4 font-label-md text-label-md text-secondary uppercase tracking-wider">Viajero</th>
+<th class="px-6 py-4 font-label-md text-label-md text-secondary uppercase tracking-wider">Colegio &amp; Curso</th>
+<th class="px-6 py-4 font-label-md text-label-md text-secondary uppercase tracking-wider">Estado Pago</th>
+<th class="px-6 py-4 font-label-md text-label-md text-secondary uppercase tracking-wider">Documentación</th>
+<th class="px-6 py-4 font-label-md text-label-md text-secondary uppercase tracking-wider">Asignación</th>
+<th class="px-6 py-4 font-label-md text-label-md text-secondary uppercase tracking-wider text-right">Acciones</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-lowest/50 transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-primary font-bold">IC</div>
+<div>
+<p class="font-bold text-on-background text-body-md">Ignacio Castillo Jaime</p>
+<p class="text-caption text-secondary">DNI: 88452565L</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<p class="text-body-md font-medium text-on-background">I.E.S. Velázquez</p>
+<p class="text-caption text-secondary">2º Bachillerato C</p>
+</td>
+<td class="px-6 py-4">
+<span class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-700">Pagado</span>
+</td>
+<td class="px-6 py-4">
+<span class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-700 flex items-center gap-1 w-fit">
+<span class="material-symbols-outlined text-[14px]">check</span> Completa
+                                    </span>
+</td>
+<td class="px-6 py-4 text-body-md text-on-background">
+<div class="flex flex-col gap-1">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">directions_bus</span> Bus 1</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">bed</span> Hab. 302</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 text-secondary hover:text-primary hover:bg-primary/10 rounded-lg transition-colors" title="Ver Perfil">
+<span class="material-symbols-outlined">visibility</span>
+</button>
+<button class="p-2 text-secondary hover:text-primary hover:bg-primary/10 rounded-lg transition-colors" title="Editar">
+<span class="material-symbols-outlined">edit</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-lowest/50 transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 font-bold">JC</div>
+<div>
+<p class="font-bold text-on-background text-body-md">Javier Conecta</p>
+<p class="text-caption text-secondary">DNI: 11111111L</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<p class="text-body-md font-medium text-on-background">Colegio Santa María</p>
+<p class="text-caption text-secondary">1º Bachillerato A</p>
+</td>
+<td class="px-6 py-4">
+<span class="px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-700">Pendiente</span>
+</td>
+<td class="px-6 py-4">
+<span class="px-3 py-1 rounded-full text-xs font-bold bg-blue-100 text-blue-700 flex items-center gap-1 w-fit">
+<span class="material-symbols-outlined text-[14px]">sync</span> En revisión
+                                    </span>
+</td>
+<td class="px-6 py-4 text-body-md text-on-background">
+<span class="text-outline italic">No asignado</span>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 text-secondary hover:text-primary hover:bg-primary/10 rounded-lg transition-colors">
+<span class="material-symbols-outlined">visibility</span>
+</button>
+<button class="p-2 text-secondary hover:text-primary hover:bg-primary/10 rounded-lg transition-colors">
+<span class="material-symbols-outlined">edit</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-lowest/50 transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-rose-100 flex items-center justify-center text-rose-600 font-bold">NT</div>
+<div>
+<p class="font-bold text-on-background text-body-md">Noelia Turismo</p>
+<p class="text-caption text-secondary">DNI: 11661112Y</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<p class="text-body-md font-medium text-on-background">I.E.S. Velázquez</p>
+<p class="text-caption text-secondary">2º Bachillerato B</p>
+</td>
+<td class="px-6 py-4">
+<span class="px-3 py-1 rounded-full text-xs font-bold bg-rose-100 text-rose-700">Vencido</span>
+</td>
+<td class="px-6 py-4">
+<span class="px-3 py-1 rounded-full text-xs font-bold bg-rose-100 text-rose-700 flex items-center gap-1 w-fit">
+<span class="material-symbols-outlined text-[14px]">priority_high</span> Pendiente
+                                    </span>
+</td>
+<td class="px-6 py-4 text-body-md text-on-background">
+<div class="flex flex-col gap-1">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">directions_bus</span> Bus 2</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 text-secondary hover:text-primary hover:bg-primary/10 rounded-lg transition-colors">
+<span class="material-symbols-outlined">visibility</span>
+</button>
+<button class="p-2 text-secondary hover:text-primary hover:bg-primary/10 rounded-lg transition-colors">
+<span class="material-symbols-outlined">edit</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container-lowest/50 transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-orange-600 font-bold">MR</div>
+<div>
+<p class="font-bold text-on-background text-body-md">Marc Rivera</p>
+<p class="text-caption text-secondary">DNI: 44901223K</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<p class="text-body-md font-medium text-on-background">I.E.S. Velázquez</p>
+<p class="text-caption text-secondary">2º Bachillerato C</p>
+</td>
+<td class="px-6 py-4">
+<span class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-700">Pagado</span>
+</td>
+<td class="px-6 py-4">
+<span class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-700 flex items-center gap-1 w-fit">
+<span class="material-symbols-outlined text-[14px]">check</span> Completa
+                                    </span>
+</td>
+<td class="px-6 py-4 text-body-md text-on-background">
+<div class="flex flex-col gap-1">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">directions_bus</span> Bus 1</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">bed</span> Hab. 302</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 text-secondary hover:text-primary hover:bg-primary/10 rounded-lg transition-colors">
+<span class="material-symbols-outlined">visibility</span>
+</button>
+<button class="p-2 text-secondary hover:text-primary hover:bg-primary/10 rounded-lg transition-colors">
+<span class="material-symbols-outlined">edit</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<!-- Table Pagination -->
+<div class="px-6 py-4 bg-surface border-t border-outline-variant flex items-center justify-between">
+<p class="text-caption text-secondary">Mostrando 4 de 124 viajeros registrados</p>
+<div class="flex gap-2">
+<button class="p-2 border border-outline-variant rounded-lg hover:bg-surface-container-low disabled:opacity-30" disabled="">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="px-4 py-2 bg-primary text-on-primary rounded-lg font-bold text-xs">1</button>
+<button class="px-4 py-2 hover:bg-surface-container-low rounded-lg text-xs font-bold">2</button>
+<button class="px-4 py-2 hover:bg-surface-container-low rounded-lg text-xs font-bold">3</button>
+<span class="px-2 self-center">...</span>
+<button class="px-4 py-2 hover:bg-surface-container-low rounded-lg text-xs font-bold">31</button>
+<button class="p-2 border border-outline-variant rounded-lg hover:bg-surface-container-low">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Micro-interaction Script -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Placeholder for filter logic or row highlighting
+            console.log('Viajeros module initialized');
+        });
+    </script>
+</body></html>

@@ -7,6 +7,7 @@ use App\Models\Accommodation;
 use App\Models\Room;
 use App\Models\Traveler;
 use App\Models\Trip;
+use App\Models\TripBooking;
 use Illuminate\Http\Request;
 
 class AccommodationController extends Controller
@@ -86,6 +87,17 @@ class AccommodationController extends Controller
         $data = $request->validate([
             'traveler_id' => 'required|exists:travelers,id',
         ]);
+
+        $traveler = Traveler::findOrFail($data['traveler_id']);
+        $tripId = $room->accommodation->trip_id;
+
+        $belongsToTrip = TripBooking::where('trip_id', $tripId)
+            ->where('traveler_id', $traveler->id)
+            ->exists();
+
+        if (!$belongsToTrip) {
+            return back()->with('error', 'El viajero no pertenece a este viaje.');
+        }
 
         $currentCount = $room->travelers()->count();
         if ($currentCount >= $room->capacity) {

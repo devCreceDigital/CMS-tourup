@@ -10,7 +10,7 @@ class TripTravelerController extends Controller
 {
     public function index(Trip $trip)
     {
-        $trip->load('bookings.traveler');
+        $trip->load('bookings');
 
         $bookings = $trip->bookings()->with('traveler')->paginate(20);
 

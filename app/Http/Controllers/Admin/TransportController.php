@@ -60,6 +60,22 @@ class TransportController extends Controller
 
         $bus->update($validated);
 
+        $existingIds = $bus->seats()->where('is_occupied', true)->pluck('id');
+
+        $bus->seats()->delete();
+
+        for ($row = 1; $row <= $bus->rows; $row++) {
+            for ($col = 1; $col <= $bus->columns; $col++) {
+                BusSeat::create([
+                    'bus_id'      => $bus->id,
+                    'seat_number' => $row . chr(64 + $col),
+                    'row'         => $row,
+                    'column'      => $col,
+                    'is_occupied' => false,
+                ]);
+            }
+        }
+
         return redirect()->route('admin.trips.transport.index', $bus->trip_id)->with('success', 'Bus actualizado correctamente.');
     }
 

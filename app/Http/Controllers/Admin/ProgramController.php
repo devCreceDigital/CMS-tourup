@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Enums\ProgramStatus;
 use Illuminate\Http\Request;
 use App\Models\Program;
 use App\Models\TripCategory;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class ProgramController extends Controller
 {
@@ -54,7 +56,7 @@ class ProgramController extends Controller
             'is_active'        => 'boolean',
         ]);
 
-        $validated['slug'] = Str::slug($validated['name']);
+        $validated['slug'] = generate_unique_slug(Program::class, $validated['name']);
         $validated['is_active'] = $request->boolean('is_active');
 
         Program::create($validated);
@@ -84,7 +86,7 @@ class ProgramController extends Controller
             'is_active'        => 'boolean',
         ]);
 
-        $validated['slug'] = Str::slug($validated['name']);
+        $validated['slug'] = generate_unique_slug(Program::class, $validated['name'], $id);
         $validated['is_active'] = $request->boolean('is_active');
 
         $program->update($validated);
@@ -106,7 +108,7 @@ class ProgramController extends Controller
 
         $newProgram = $program->replicate();
         $newProgram->name = $program->name . ' (copia)';
-        $newProgram->slug = $program->slug . '-copy';
+        $newProgram->slug = generate_unique_slug(Program::class, $program->name . ' copia');
         $newProgram->save();
 
         return redirect()->route('admin.programs.edit', $newProgram->id)->with('success', 'Programa duplicado correctamente.');

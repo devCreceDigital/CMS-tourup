@@ -16,6 +16,11 @@ class TripBooking extends Model
         'amount_paid', 'notes', 'pricing_group_snapshot', 'extras_snapshot',
     ];
 
+    protected $casts = [
+        'pricing_group_snapshot' => 'array',
+        'extras_snapshot' => 'array',
+    ];
+
     public function trip()
     {
         return $this->belongsTo(Trip::class);

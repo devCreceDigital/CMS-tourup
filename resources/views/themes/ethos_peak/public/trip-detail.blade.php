@@ -1,6 +1,6 @@
 @extends('layouts.public')
 
-@section('meta_title', $trip->name . ' ' . ($trip->start_date ? $trip->start_date->format('Y') : '') . ' - ' . ($agency->name ?? 'TOUR UP'))
+@section('meta_title', $trip->name . ' ' . ($trip->start_date ? $trip->start_date->format('Y') : '') . ' - ' . (optional($agency)->name ?? 'TOUR UP'))
 @section('meta_description', Illuminate\Support\Str::limit(strip_tags($trip->description), 160))
 @section('og_title', $trip->name)
 @section('og_type', 'article')
@@ -15,10 +15,10 @@
 <div class="trip-nav">
     <div class="trip-nav__inner">
         <div class="trip-nav__brand">
-            @if($agency->logo ?? null)
-                <img src="{{ asset('storage/' . $agency->logo) }}" alt="{{ $agency->name }}">
+            @if(optional($agency)->logo ?? null)
+                <img src="{{ asset('storage/' . optional($agency)->logo) }}" alt="{{ optional($agency)->name }}">
             @else
-                <span class="trip-nav__brand-name">{{ $agency->name ?? 'TOUR UP' }}</span>
+                <span class="trip-nav__brand-name">{{ optional($agency)->name ?? 'TOUR UP' }}</span>
             @endif
             <span class="trip-nav__trip-name">{{ $trip->name }}</span>
         </div>
@@ -326,8 +326,8 @@
                 <h3 class="text-2xl font-bold text-primary">¿Tienes dudas?</h3>
                 <p class="text-muted mt-sm">Estamos aquí para ayudarte en cada paso.</p>
             </div>
-            @if($agency->phone ?? null)
-            @php $waPhone = preg_replace('/[^0-9]/', '', $agency->phone); @endphp
+            @if(optional($agency)->phone ?? null)
+            @php $waPhone = preg_replace('/[^0-9]/', '', optional($agency)->phone); @endphp
             <a href="https://wa.me/{{ $waPhone }}" target="_blank" rel="noopener" class="btn btn--lg btn--pill" style="background:#25D366;color:#fff;border-color:#25D366;">
                 <span class="material-symbols-outlined">chat</span> Habla con nosotros por WhatsApp
             </a>

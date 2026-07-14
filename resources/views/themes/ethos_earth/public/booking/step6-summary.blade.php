@@ -3,7 +3,7 @@
 @section('meta_title', 'Reservar ' . $trip->name . ' - Resumen')
 
 @section('content')
-@php $themeSlug = request('preview_theme') ?: session('preview_theme') ?: ($agency->active_theme ?? 'ethos_earth'); @endphp
+@php $themeSlug = request('preview_theme') ?: session('preview_theme') ?: (optional($agency)->active_theme ?? 'ethos_earth'); @endphp
 <section class="section-sm" style="padding-top:4rem;">
     <div class="container container-sm">
         @include('themes.' . $themeSlug . '.public.booking._progress', ['currentStep' => 6])

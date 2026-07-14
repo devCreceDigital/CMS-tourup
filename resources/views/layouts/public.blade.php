@@ -6,7 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="description" content="@yield('meta_description', 'Agencia de viajes especializada en expediciones, turismo responsable y experiencias educativas.')">
 
-    <title>@yield('meta_title', 'Agencia de Viajes') | {{ $agency->name ?? 'Mi Agencia' }}</title>
+    <title>@yield('meta_title', 'Agencia de Viajes') | {{ optional($agency)->name ?? 'Mi Agencia' }}</title>
 
     <meta property="og:title" content="@yield('og_title', 'Agencia de Viajes')">
     <meta property="og:description" content="@yield('og_description', 'Agencia de viajes especializada en expediciones, turismo responsable y experiencias educativas.')">
@@ -17,7 +17,7 @@
     <link rel="canonical" href="{{ url()->current() }}">
 
     @php
-        $theme = request('preview_theme') ?: session('preview_theme') ?: ($agency->active_theme ?? 'ethos_earth');
+        $theme = request('preview_theme') ?: session('preview_theme') ?: (optional($agency)->active_theme ?? 'ethos_earth');
         $fonts = [
             'ethos_earth'  => 'family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@500;600;700',
             'ethos_ocean'  => 'family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@500;600;700',

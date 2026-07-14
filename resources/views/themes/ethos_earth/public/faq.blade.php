@@ -1,8 +1,8 @@
 @extends('layouts.public')
 
-@section('meta_title', 'Preguntas Frecuentes - ' . ($agency->name ?? 'TOUR UP'))
+@section('meta_title', 'Preguntas Frecuentes - ' . (optional($agency)->name ?? 'TOUR UP'))
 @section('meta_description', 'Resuelve tus dudas sobre nuestros viajes, reservas y políticas.')
-@section('og_title', 'Preguntas Frecuentes | ' . ($agency->name ?? 'TOUR UP'))
+@section('og_title', 'Preguntas Frecuentes | ' . (optional($agency)->name ?? 'TOUR UP'))
 
 @section('content')
     <section class="page-header">

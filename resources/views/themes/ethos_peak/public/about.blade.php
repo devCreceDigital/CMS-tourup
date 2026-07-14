@@ -1,8 +1,8 @@
 @extends('layouts.public')
 
-@section('meta_title', 'Sobre Nosotros - ' . ($agency->name ?? 'TOUR UP'))
+@section('meta_title', 'Sobre Nosotros - ' . (optional($agency)->name ?? 'TOUR UP'))
 @section('meta_description', 'Conoce nuestra historia, equipo y compromiso con el turismo responsable.')
-@section('og_title', 'Sobre Nosotros | ' . ($agency->name ?? 'TOUR UP'))
+@section('og_title', 'Sobre Nosotros | ' . (optional($agency)->name ?? 'TOUR UP'))
 
 @section('content')
     <section class="page-header">

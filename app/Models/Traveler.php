@@ -14,6 +14,11 @@ class Traveler extends Model
         'email', 'phone', 'address', 'notes',
     ];
 
+    public function getFullNameAttribute(): string
+    {
+        return trim($this->first_name . ' ' . $this->last_name);
+    }
+
     public function bookings()
     {
         return $this->hasMany(TripBooking::class);

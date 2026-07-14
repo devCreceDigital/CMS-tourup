@@ -1,8 +1,8 @@
 @extends('layouts.public')
 
-@section('meta_title', 'Agencia de Viajes - ' . ($agency->name ?? 'TOUR UP'))
+@section('meta_title', 'Agencia de Viajes - ' . (optional($agency)->name ?? 'TOUR UP'))
 @section('meta_description', 'Diseñamos viajes responsables a medida para escuelas, aventureros, grupos culturales y empresas.')
-@section('og_title', ($agency->name ?? 'TOUR UP') . ' - Viajes Responsables a Medida')
+@section('og_title', (optional($agency)->name ?? 'TOUR UP') . ' - Viajes Responsables a Medida')
 @section('og_description', 'Diseñamos experiencias de viaje únicas con compromiso social y ambiental.')
 
 @section('content')
@@ -152,7 +152,7 @@
                 <a href="{{ url('/contacto') }}" class="btn btn--accent btn--lg btn--pill">
                     <span class="material-symbols-outlined">send</span> Solicitar Propuesta
                 </a>
-                <a href="tel:{{ $agency->phone ?? '#' }}" class="btn btn--outline btn--lg btn--pill" style="color:var(--ee-white);border-color:rgba(255,255,255,0.5);">
+                <a href="tel:{{ optional($agency)->phone ?? '#' }}" class="btn btn--outline btn--lg btn--pill" style="color:var(--ee-white);border-color:rgba(255,255,255,0.5);">
                     <span class="material-symbols-outlined">call</span> Llamar Ahora
                 </a>
             </div>

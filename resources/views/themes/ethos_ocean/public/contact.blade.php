@@ -1,8 +1,8 @@
 @extends('layouts.public')
 
-@section('meta_title', 'Contacto - ' . ($agency->name ?? 'TOUR UP'))
+@section('meta_title', 'Contacto - ' . (optional($agency)->name ?? 'TOUR UP'))
 @section('meta_description', 'Ponte en contacto con nosotros para diseñar tu próxima experiencia de viaje.')
-@section('og_title', 'Contacto | ' . ($agency->name ?? 'TOUR UP'))
+@section('og_title', 'Contacto | ' . (optional($agency)->name ?? 'TOUR UP'))
 
 @section('content')
     <section class="page-header">
@@ -26,10 +26,10 @@
                             <span>{{ $agency->address }}</span>
                         </li>
                         @endif
-                        @if(isset($agency->phone) && $agency->phone)
+                        @if(isset(optional($agency)->phone) && optional($agency)->phone)
                         <li class="footer__contact-item" style="color:var(--theme-text);">
                             <span class="material-symbols-outlined text-accent">call</span>
-                            <a href="tel:{{ $agency->phone }}" class="text-primary">{{ $agency->phone }}</a>
+                            <a href="tel:{{ optional($agency)->phone }}" class="text-primary">{{ optional($agency)->phone }}</a>
                         </li>
                         @endif
                         @if(isset($agency->email) && $agency->email)

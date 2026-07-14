@@ -20,7 +20,7 @@ class BookingService
     public function createBooking(array $data): TripBooking
     {
         return DB::transaction(function () use ($data) {
-            $trip = Trip::findOrFail($data['trip_id']);
+            $trip = Trip::where('id', $data['trip_id'])->lockForUpdate()->firstOrFail();
             $spotsRequested = count($data['travelers']);
             $reference = $data['reference'] ?? (string) Str::uuid();
 
@@ -110,10 +110,6 @@ class BookingService
 
             $trip->increment('occupied_spots', $spotsRequested);
 
-            if ($booking && $pricingGroup) {
-                $this->snapshotPricingAtBooking($booking, $pricingGroup);
-            }
-
             $bookings = TripBooking::where('reference', $reference)->get();
             foreach ($bookings as $b) {
                 $this->generatePendingDocuments($b);
@@ -165,7 +161,7 @@ class BookingService
         });
     }
 
-    public function autoAssignSeat(Trip $trip, ?Bus $bus = null): ?int
+    public function autoAssignSeat(Trip $trip, ?Bus $bus = null): ?string
     {
         if (!$bus) {
             $bus = $trip->buses()->first();
@@ -173,10 +169,11 @@ class BookingService
         if (!$bus) return null;
 
         $occupiedSeats = $bus->seats()->where('is_occupied', true)->pluck('seat_number')->toArray();
+        $allSeats = $bus->seats()->pluck('seat_number')->toArray();
 
-        for ($i = 1; $i <= $bus->total_seats; $i++) {
-            if (!in_array($i, $occupiedSeats)) {
-                return $i;
+        foreach ($allSeats as $seatCode) {
+            if (!in_array($seatCode, $occupiedSeats, true)) {
+                return $seatCode;
             }
         }
 

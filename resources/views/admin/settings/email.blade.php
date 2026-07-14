@@ -45,7 +45,7 @@
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Contraseña</label>
-                    <input type="password" name="mail_password" value="{{ $settings['mail_password'] ?? '' }}" class="w-full rounded-lg border-gray-300 text-sm" placeholder="App Password">
+                    <input type="password" name="mail_password" class="w-full rounded-lg border-gray-300 text-sm" placeholder="{{ $settings['mail_password'] ?? '' ? '•••••••• (dejar vacío para mantener)' : 'App Password' }}">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Encriptación</label>

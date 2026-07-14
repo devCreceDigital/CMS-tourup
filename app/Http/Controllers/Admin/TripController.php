@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Enums\TripStatus;
 use Illuminate\Http\Request;
 use App\Models\Trip;
 use App\Models\TripCategory;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class TripController extends Controller
 {
@@ -56,12 +58,12 @@ class TripController extends Controller
             'end_date'         => 'required|date|after_or_equal:start_date',
             'description'      => 'nullable|string',
             'image'            => 'nullable|image|mimes:jpeg,png,jpg,webp|max:10240',
-            'status'           => 'required|in:active,inactive,completed,cancelled',
+            'status'           => ['required', Rule::in(TripStatus::values())],
             'total_spots'      => 'required|integer|min:1',
             'occupied_spots'   => 'required|integer|min:0',
         ]);
 
-        $validated['slug'] = Str::slug($validated['name']);
+        $validated['slug'] = generate_unique_slug(Trip::class, $validated['name']);
 
         if ($request->hasFile('image')) {
             $validated['image'] = $request->file('image')->store('trips', 'public');
@@ -93,12 +95,12 @@ class TripController extends Controller
             'end_date'         => 'required|date|after_or_equal:start_date',
             'description'      => 'nullable|string',
             'image'            => 'nullable|image|mimes:jpeg,png,jpg,webp|max:10240',
-            'status'           => 'required|in:active,inactive,completed,cancelled',
+            'status'           => ['required', Rule::in(TripStatus::values())],
             'total_spots'      => 'required|integer|min:1',
             'occupied_spots'   => 'required|integer|min:0',
         ]);
 
-        $validated['slug'] = Str::slug($validated['name']);
+        $validated['slug'] = generate_unique_slug(Trip::class, $validated['name'], $id);
 
         if ($request->hasFile('image')) {
             $validated['image'] = $request->file('image')->store('trips', 'public');
@@ -123,7 +125,7 @@ class TripController extends Controller
 
         $newTrip = $trip->replicate();
         $newTrip->reference = $trip->reference . '-copy';
-        $newTrip->slug = $trip->slug . '-copy';
+        $newTrip->slug = generate_unique_slug(Trip::class, $trip->name . ' copia');
         $newTrip->name = $trip->name . ' (copia)';
         $newTrip->occupied_spots = 0;
         $newTrip->save();

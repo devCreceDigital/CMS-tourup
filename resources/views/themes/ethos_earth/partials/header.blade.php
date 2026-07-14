@@ -15,11 +15,11 @@
 @endphp
 <header class="navbar" id="navbar">
     <div class="navbar__inner">
-        <a href="{{ url('/') }}" class="navbar__brand" aria-label="{{ $agency->name ?? 'Mi Agencia' }} — Inicio">
-            @if(isset($agency) && $agency->logo)
-                <img src="{{ asset('storage/' . $agency->logo) }}" alt="{{ $agency->name ?? 'Mi Agencia' }}">
+        <a href="{{ url('/') }}" class="navbar__brand" aria-label="{{ optional($agency)->name ?? 'Mi Agencia' }} — Inicio">
+            @if(isset($agency) && optional($agency)->logo)
+                <img src="{{ asset('storage/' . optional($agency)->logo) }}" alt="{{ optional($agency)->name ?? 'Mi Agencia' }}">
             @else
-                <span>{{ $agency->name ?? 'Mi Agencia' }}</span>
+                <span>{{ optional($agency)->name ?? 'Mi Agencia' }}</span>
             @endif
         </a>
 

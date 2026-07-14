@@ -84,7 +84,7 @@ Route::prefix('panel-agencia')->middleware(['auth', 'admin'])->group(function ()
 
     // Trips
     Route::resource('trips', TripController::class)->names('admin.trips');
-    Route::get('trips/{trip}/duplicate', [TripController::class, 'duplicate'])->name('admin.trips.duplicate');
+    Route::post('trips/{trip}/duplicate', [TripController::class, 'duplicate'])->name('admin.trips.duplicate');
 
     // Itinerary
     Route::get('trips/{trip}/itinerary', [ItineraryController::class, 'index'])->name('admin.trips.itinerary.index');

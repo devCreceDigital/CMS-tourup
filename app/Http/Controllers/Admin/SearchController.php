@@ -44,7 +44,8 @@ class SearchController extends Controller
             $total += $trips->count();
         }
 
-        $travelers = Traveler::where('full_name', 'like', "%{$query}%")
+        $travelers = Traveler::where('first_name', 'like', "%{$query}%")
+            ->orWhere('last_name', 'like', "%{$query}%")
             ->orWhere('dni', 'like', "%{$query}%")
             ->get();
         if ($travelers->count() > 0) {
@@ -53,7 +54,7 @@ class SearchController extends Controller
                 'icon' => 'fa-users',
                 'items' => $travelers->map(function ($t) {
                     return [
-                        'title' => $t->full_name . ' (DNI: ' . $t->dni . ')',
+                        'title' => $t->full_name . ' (DNI: ' . ($t->dni ?? 'N/A') . ')',
                         'url' => route('admin.travelers.show', $t->id),
                     ];
                 }),

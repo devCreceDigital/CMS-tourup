@@ -21,7 +21,7 @@
 <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6 flex items-start gap-3">
     <i class="fas fa-info-circle text-blue-600 text-lg mt-0.5"></i>
     <div class="text-sm text-blue-800">
-        <p class="font-semibold mb-1">Tema activo: <span class="font-mono">{{ $agency->active_theme ?? 'ethos_earth' }}</span></p>
+        <p class="font-semibold mb-1">Tema activo: <span class="font-mono">{{ optional($agency)->active_theme ?? 'ethos_earth' }}</span></p>
         <p>Al cambiar de tema, toda la parte pública (header, footer, homepage, ficha de viaje, blog, reservas) cambia de piel sin afectar rutas, controladores ni lógica.</p>
     </div>
 </div>

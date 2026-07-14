@@ -12,6 +12,8 @@ class DashboardController extends Controller
 {
     public function index(Request $request)
     {
+        $request->validate(['year' => 'nullable|integer|min:2000|max:2099']);
+
         $activeTrips = Trip::where('status', 'active')->count();
         $upcomingTrips = Trip::where('start_date', '>=', now())->count();
         $totalTravelers = Traveler::count();
@@ -41,6 +43,8 @@ class DashboardController extends Controller
 
     public function exportCsv(Request $request)
     {
+        $request->validate(['year' => 'nullable|integer|min:2000|max:2099']);
+
         $query = Trip::with('category');
 
         if ($year = $request->year) {

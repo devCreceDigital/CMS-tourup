@@ -1,8 +1,8 @@
 @extends('layouts.public')
 
-@section('meta_title', 'Blog - ' . ($agency->name ?? 'TOUR UP'))
+@section('meta_title', 'Blog - ' . (optional($agency)->name ?? 'TOUR UP'))
 @section('meta_description', 'Artículos, guías y novedades del mundo de los viajes.')
-@section('og_title', 'Blog | ' . ($agency->name ?? 'TOUR UP'))
+@section('og_title', 'Blog | ' . (optional($agency)->name ?? 'TOUR UP'))
 
 @section('content')
     <section class="page-header">

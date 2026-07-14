@@ -32,6 +32,14 @@ class TripDocumentController extends Controller
             return;
         }
 
+        $hasRejected = $allDocs->contains(fn($d) => $d->status === 'rejected');
+        if ($hasRejected) {
+            TripBooking::where('trip_id', $trip->id)
+                ->where('traveler_id', $travelerId)
+                ->update(['document_status' => 'rejected']);
+            return;
+        }
+
         $allComplete = $allDocs->every(fn($d) => $d->status === 'complete');
         $newStatus = $allComplete ? 'complete' : 'pending';
 

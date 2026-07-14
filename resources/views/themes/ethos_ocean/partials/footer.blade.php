@@ -31,7 +31,7 @@
     <div class="container">
         <div class="footer__grid">
             <div>
-                <h3 class="footer__brand">{{ $agency->name ?? 'Mi Agencia' }}</h3>
+                <h3 class="footer__brand">{{ optional($agency)->name ?? 'Mi Agencia' }}</h3>
                 <p class="footer__desc">{{ $agency->welcome_phrase ?? 'Diseñamos viajes responsables a medida. Creamos experiencias transformadoras con compromiso social y ambiental.' }}</p>
             </div>
             <div>
@@ -51,10 +51,10 @@
                         <span>{{ $agency->address }}</span>
                     </li>
                     @endif
-                    @if(isset($agency->phone) && $agency->phone)
+                    @if(isset(optional($agency)->phone) && optional($agency)->phone)
                     <li class="footer__contact-item">
                         <span class="material-symbols-outlined">call</span>
-                        <a href="tel:{{ $agency->phone }}">{{ $agency->phone }}</a>
+                        <a href="tel:{{ optional($agency)->phone }}">{{ optional($agency)->phone }}</a>
                     </li>
                     @endif
                     @if(isset($agency->email) && $agency->email)
@@ -74,7 +74,7 @@
         </div>
 
         <div class="footer__bottom">
-            <p>&copy; {{ date('Y') }} {{ $agency->name ?? 'Mi Agencia' }}. Todos los derechos reservados.</p>
+            <p>&copy; {{ date('Y') }} {{ optional($agency)->name ?? 'Mi Agencia' }}. Todos los derechos reservados.</p>
             <div class="footer__social">
                 @foreach($social as $net => $url)
                     @if($url)

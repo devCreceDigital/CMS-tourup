@@ -183,7 +183,7 @@ class BookingController extends Controller
     public function confirm(Request $request, string $slug)
     {
         $trip = $this->getTrip($slug);
-        $data = $request->session()->pull('booking_data');
+        $data = $request->session()->get('booking_data');
 
         if (!$data || !isset($data['travelers'])) {
             return redirect()->route('public.booking.step1', $slug);
@@ -195,6 +195,9 @@ class BookingController extends Controller
 
         try {
             $booking = $this->bookingService->createBooking($data);
+
+            $request->session()->forget('booking_data');
+
             $this->bookingService->sendConfirmationEmails($booking);
 
             $request->session()->put('booking_confirmed', [

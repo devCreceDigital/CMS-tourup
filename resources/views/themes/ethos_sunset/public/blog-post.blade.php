@@ -1,6 +1,6 @@
 @extends('layouts.public')
 
-@section('meta_title', $post->title . ' - ' . ($agency->name ?? 'TOUR UP'))
+@section('meta_title', $post->title . ' - ' . (optional($agency)->name ?? 'TOUR UP'))
 @section('meta_description', Illuminate\Support\Str::limit(strip_tags($post->content), 160))
 @section('og_title', $post->title)
 @section('og_type', 'article')

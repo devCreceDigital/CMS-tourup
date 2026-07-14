@@ -1,7 +1,7 @@
 @php
     $steps = [
         1 => 'Fecha', 2 => 'Plazas', 3 => 'Datos', 4 => 'Tarifa',
-        5 => 'Extras', 6 => 'Resumen', 7 => 'Pago', 8 => 'Confirmación'
+        5 => 'Extras', 6 => 'Resumen', 7 => 'Confirmación'
     ];
 @endphp
 <div class="booking-progress">

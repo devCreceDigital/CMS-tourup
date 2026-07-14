@@ -3,7 +3,7 @@
 @section('meta_title', 'Reservar ' . $trip->name . ' - Datos de los viajeros')
 
 @section('content')
-@php $themeSlug = request('preview_theme') ?: session('preview_theme') ?: ($agency->active_theme ?? 'ethos_earth'); @endphp
+@php $themeSlug = request('preview_theme') ?: session('preview_theme') ?: (optional($agency)->active_theme ?? 'ethos_earth'); @endphp
 <section class="section-sm" style="padding-top:4rem;">
     <div class="container container-sm">
         @include('themes.' . $themeSlug . '.public.booking._progress', ['currentStep' => 3])
@@ -14,8 +14,8 @@
 
             <form action="{{ route('public.booking.postStep3', $trip->slug) }}" method="POST">
                 @csrf
-                @for($i = 0; $i < $data['spots']; $i++)
-                <div class="{{ $i < $data['spots'] - 1 ? 'mb-lg pb-lg' : 'mb-lg' }}" style="{{ $i < $data['spots'] - 1 ? 'border-bottom:1px solid var(--theme-border);' : '' }}">
+                @for($i = 0; $i < ($data['spots'] ?? 0); $i++)
+                <div class="{{ $i < ($data['spots'] ?? 1) - 1 ? 'mb-lg pb-lg' : 'mb-lg' }}" style="{{ $i < ($data['spots'] ?? 1) - 1 ? 'border-bottom:1px solid var(--theme-border);' : '' }}">
                     <h3 class="text-lg font-semibold text-primary mb-md flex items-center gap-sm">
                         <span class="badge badge--primary" style="width:2.8rem;height:2.8rem;border-radius:50%;justify-content:center;">{{ $i + 1 }}</span>
                         Viajero {{ $i + 1 }}

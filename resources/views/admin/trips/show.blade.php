@@ -64,15 +64,21 @@
                 <dl class="space-y-4">
                     <div>
                         <dt class="text-xs text-gray-400 uppercase tracking-wide">Fecha Inicio</dt>
-                        <dd class="text-sm text-gray-900 mt-1">{{ \Carbon\Carbon::parse($trip->start_date)->format('d/m/Y') }}</dd>
+                        <dd class="text-sm text-gray-900 mt-1">{{ $trip->start_date ? \Carbon\Carbon::parse($trip->start_date)->format('d/m/Y') : '--' }}</dd>
                     </div>
                     <div>
                         <dt class="text-xs text-gray-400 uppercase tracking-wide">Fecha Fin</dt>
-                        <dd class="text-sm text-gray-900 mt-1">{{ \Carbon\Carbon::parse($trip->end_date)->format('d/m/Y') }}</dd>
+                        <dd class="text-sm text-gray-900 mt-1">{{ $trip->end_date ? \Carbon\Carbon::parse($trip->end_date)->format('d/m/Y') : '--' }}</dd>
                     </div>
                     <div>
                         <dt class="text-xs text-gray-400 uppercase tracking-wide">Duración</dt>
-                        <dd class="text-sm text-gray-900 mt-1">{{ \Carbon\Carbon::parse($trip->start_date)->diffInDays(\Carbon\Carbon::parse($trip->end_date)) + 1 }} días</dd>
+                        <dd class="text-sm text-gray-900 mt-1">
+                            @if($trip->start_date && $trip->end_date)
+                                {{ \Carbon\Carbon::parse($trip->start_date)->diffInDays(\Carbon\Carbon::parse($trip->end_date)) + 1 }} días
+                            @else
+                                <span class="text-gray-400">No definido</span>
+                            @endif
+                        </dd>
                     </div>
                     <div>
                         <dt class="text-xs text-gray-400 uppercase tracking-wide">Precio</dt>
@@ -117,9 +123,12 @@
             <a href="{{ route('admin.trips.edit', $trip->id) }}" class="px-4 py-2 bg-amber-500 text-white text-sm font-medium rounded-lg hover:bg-amber-600 transition-colors">
                 <i class="fas fa-edit mr-1"></i> Editar
             </a>
-            <a href="{{ route('admin.trips.duplicate', $trip->id) }}" class="px-4 py-2 bg-green-500 text-white text-sm font-medium rounded-lg hover:bg-green-600 transition-colors" data-confirm="¿Duplicar este viaje?">
-                <i class="fas fa-copy mr-1"></i> Duplicar
-            </a>
+            <form action="{{ route('admin.trips.duplicate', $trip->id) }}" method="POST" class="inline" onsubmit="return confirm('¿Duplicar este viaje?')">
+                @csrf
+                <button type="submit" class="px-4 py-2 bg-green-500 text-white text-sm font-medium rounded-lg hover:bg-green-600 transition-colors">
+                    <i class="fas fa-copy mr-1"></i> Duplicar
+                </button>
+            </form>
         </div>
     </div>
 @endsection

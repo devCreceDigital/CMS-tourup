@@ -69,7 +69,13 @@
                                         <span class="material-symbols-outlined text-sm">{{ $day->is_published ? 'visibility' : 'visibility_off' }}</span>
                                     </button>
                                 </form>
-                                <button onclick="editDay({{ $day->id }}, {{ $day->day_number }}, '{{ $day->date }}', '{{ addslashes($day->title) }}')" class="p-1 text-outline hover:text-primary transition-colors" title="Editar">
+                                <button type="button"
+                                    data-day-id="{{ $day->id }}"
+                                    data-day-number="{{ $day->day_number }}"
+                                    data-day-date="{{ $day->date }}"
+                                    data-day-title="{{ $day->title }}"
+                                    onclick="editDayFromData(this)"
+                                    class="p-1 text-outline hover:text-primary transition-colors" title="Editar">
                                     <span class="material-symbols-outlined text-sm">edit</span>
                                 </button>
                                 <form action="{{ route('admin.trips.itinerary.days.destroy', $day) }}" method="POST" class="inline">
@@ -110,7 +116,13 @@
                             @endif
                         </div>
                     </div>
-                    <button onclick="editDay({{ $selectedDay->id }}, {{ $selectedDay->day_number }}, '{{ $selectedDay->date }}', '{{ addslashes($selectedDay->title) }}')" class="p-2 text-outline hover:text-primary transition-colors rounded-lg hover:bg-surface-container">
+                    <button type="button"
+                        data-day-id="{{ $selectedDay->id }}"
+                        data-day-number="{{ $selectedDay->day_number }}"
+                        data-day-date="{{ $selectedDay->date }}"
+                        data-day-title="{{ $selectedDay->title }}"
+                        onclick="editDayFromData(this)"
+                        class="p-2 text-outline hover:text-primary transition-colors rounded-lg hover:bg-surface-container">
                         <span class="material-symbols-outlined">edit</span>
                     </button>
                 </div>
@@ -171,7 +183,15 @@
                                         </div>
                                         {{-- Activity Actions --}}
                                         <div class="hidden group-hover:flex items-center gap-1 shrink-0">
-                                            <button onclick="editActivity({{ $activity->id }}, '{{ addslashes($activity->time) }}', '{{ addslashes($activity->title) }}', '{{ addslashes($activity->description) }}', '{{ $activity->type }}', '{{ addslashes($activity->important_notes) }}')" class="p-1.5 text-outline hover:text-primary transition-colors rounded-lg hover:bg-surface-container">
+                                            <button type="button"
+                                                data-activity-id="{{ $activity->id }}"
+                                                data-activity-time="{{ $activity->time }}"
+                                                data-activity-title="{{ $activity->title }}"
+                                                data-activity-description="{{ $activity->description }}"
+                                                data-activity-type="{{ $activity->type }}"
+                                                data-activity-notes="{{ $activity->important_notes }}"
+                                                onclick="editActivityFromData(this)"
+                                                class="p-1.5 text-outline hover:text-primary transition-colors rounded-lg hover:bg-surface-container">
                                                 <span class="material-symbols-outlined text-sm">edit</span>
                                             </button>
                                             <form action="{{ route('admin.trips.itinerary.activities.destroy', $activity) }}" method="POST" class="inline">
@@ -311,6 +331,13 @@
 
 @push('scripts')
 <script>
+var ROUTES = {
+    daysStore: '{{ route("admin.trips.itinerary.days.store", $trip) }}',
+    daysUpdate: '{{ route("admin.trips.itinerary.days.update", ["day" => "_ID_"]) }}'.replace('_ID_', ''),
+    activitiesStore: '{{ isset($selectedDay) ? route("admin.trips.itinerary.activities.store", $selectedDay) : "" }}',
+    activitiesUpdate: '{{ route("admin.trips.itinerary.activities.update", ["activity" => "_ID_"]) }}'.replace('_ID_', ''),
+};
+
 document.getElementById('dayForm').addEventListener('submit', function(e) {
     var btn = this.querySelector('button[type="submit"]');
     btn.disabled = true;
@@ -327,7 +354,7 @@ function openDayModal(title, method, action, data) {
     btn.classList.remove('opacity-50', 'cursor-not-allowed');
     document.getElementById('dayModalTitle').textContent = title || 'Nuevo Día';
     document.getElementById('dayFormMethod').value = method || 'POST';
-    document.getElementById('dayForm').action = action || '{{ route("admin.trips.itinerary.days.store", $trip) }}';
+    document.getElementById('dayForm').action = action || ROUTES.daysStore;
     document.getElementById('dayNumber').value = data?.day_number || '';
     document.getElementById('dayDate').value = data?.date || '';
     document.getElementById('dayTitle').value = data?.title || '';
@@ -336,8 +363,13 @@ function openDayModal(title, method, action, data) {
 function closeDayModal() {
     document.getElementById('dayModal').classList.add('hidden');
 }
-function editDay(id, dayNumber, date, title) {
-    openDayModal('Editar Día', 'PUT', '/panel-agencia/itinerary-days/' + id, { day_number: dayNumber, date: date, title: title });
+function editDayFromData(btn) {
+    var id = btn.getAttribute('data-day-id');
+    openDayModal('Editar Día', 'PUT', ROUTES.daysUpdate + id, {
+        day_number: btn.getAttribute('data-day-number'),
+        date: btn.getAttribute('data-day-date'),
+        title: btn.getAttribute('data-day-title'),
+    });
 }
 document.getElementById('dayModal').addEventListener('click', function(e) { if (e.target === this) closeDayModal(); });
 
@@ -347,7 +379,7 @@ function openActivityModal(title, method, action, data) {
     btn.classList.remove('opacity-50', 'cursor-not-allowed');
     document.getElementById('activityModalTitle').textContent = title || 'Nueva Actividad';
     document.getElementById('activityFormMethod').value = method || 'POST';
-    document.getElementById('activityForm').action = action || '{{ isset($selectedDay) ? route("admin.trips.itinerary.activities.store", $selectedDay) : "" }}';
+    document.getElementById('activityForm').action = action || ROUTES.activitiesStore;
     document.getElementById('activityTime').value = data?.time || '';
     document.getElementById('activityType').value = data?.type || '';
     document.getElementById('activityTitle').value = data?.title || '';
@@ -358,8 +390,15 @@ function openActivityModal(title, method, action, data) {
 function closeActivityModal() {
     document.getElementById('activityModal').classList.add('hidden');
 }
-function editActivity(id, time, title, description, type, importantNotes) {
-    openActivityModal('Editar Actividad', 'PUT', '/panel-agencia/itinerary-activities/' + id, { time: time, title: title, description: description, type: type, important_notes: importantNotes });
+function editActivityFromData(btn) {
+    var id = btn.getAttribute('data-activity-id');
+    openActivityModal('Editar Actividad', 'PUT', ROUTES.activitiesUpdate + id, {
+        time: btn.getAttribute('data-activity-time'),
+        title: btn.getAttribute('data-activity-title'),
+        description: btn.getAttribute('data-activity-description'),
+        type: btn.getAttribute('data-activity-type'),
+        important_notes: btn.getAttribute('data-activity-notes'),
+    });
 }
 document.getElementById('activityModal').addEventListener('click', function(e) { if (e.target === this) closeActivityModal(); });
 </script>

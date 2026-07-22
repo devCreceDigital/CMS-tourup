@@ -20,12 +20,12 @@ class BookingService
     public function createBooking(array $data): TripBooking
     {
         return DB::transaction(function () use ($data) {
-            $trip = Trip::findOrFail($data['trip_id']);
+            $trip = Trip::lockForUpdate()->findOrFail($data['trip_id']);
             $spotsRequested = count($data['travelers']);
             $reference = $data['reference'] ?? (string) Str::uuid();
 
             $available = $this->checkAvailability($trip, $spotsRequested);
-            if (!$available['available']) {
+            if (!$available['available'] && !$available['waitlist']) {
                 throw new \RuntimeException($available['message']);
             }
 
@@ -36,7 +36,7 @@ class BookingService
             $booking = null;
 
             foreach ($data['travelers'] as $i => $travelerData) {
-                $traveler = Traveler::firstOrCreate(
+                $traveler = Traveler::updateOrCreate(
                     ['dni' => $travelerData['dni']],
                     [
                         'first_name' => $travelerData['first_name'],
@@ -83,7 +83,7 @@ class BookingService
                 }
 
                 if ($pricingGroup) {
-                    $bookingData['pricing_group_snapshot'] = json_encode([
+                    $bookingData['pricing_group_snapshot'] = [
                         'group_id' => $pricingGroup->id,
                         'group_name' => $pricingGroup->name,
                         'installments' => $pricingGroup->installments->map(function ($inst) {
@@ -95,11 +95,11 @@ class BookingService
                             ];
                         })->toArray(),
                         'total' => $pricingGroup->installments->sum('amount'),
-                    ]);
+                    ];
                 }
 
                 if (isset($data['extras'])) {
-                    $bookingData['extras_snapshot'] = json_encode($data['extras']);
+                    $bookingData['extras_snapshot'] = $data['extras'];
                 }
 
                 $created = TripBooking::create($bookingData);
@@ -108,7 +108,9 @@ class BookingService
                 }
             }
 
-            $trip->increment('occupied_spots', $spotsRequested);
+            if (!$available['waitlist']) {
+                $trip->increment('occupied_spots', $spotsRequested);
+            }
 
             if ($booking && $pricingGroup) {
                 $this->snapshotPricingAtBooking($booking, $pricingGroup);
@@ -142,7 +144,7 @@ class BookingService
     public function addToWaitlist(Trip $trip, array $travelerData): TripBooking
     {
         return DB::transaction(function () use ($trip, $travelerData) {
-            $traveler = Traveler::firstOrCreate(
+            $traveler = Traveler::updateOrCreate(
                 ['dni' => $travelerData['dni']],
                 [
                     'first_name' => $travelerData['first_name'],
@@ -172,7 +174,7 @@ class BookingService
         }
         if (!$bus) return null;
 
-        $occupiedSeats = $bus->seats()->where('is_occupied', true)->pluck('seat_number')->toArray();
+        $occupiedSeats = $bus->seats()->lockForUpdate()->where('is_occupied', true)->pluck('seat_number')->toArray();
 
         for ($i = 1; $i <= $bus->total_seats; $i++) {
             if (!in_array($i, $occupiedSeats)) {
@@ -235,26 +237,31 @@ class BookingService
         });
 
         $booking->update([
-            'pricing_group_snapshot' => json_encode([
+            'pricing_group_snapshot' => [
                 'group_id' => $group->id,
                 'group_name' => $group->name,
                 'total' => $group->installments->sum('amount'),
                 'installments' => $snapshot,
-            ]),
+            ],
         ]);
     }
 
     public function cancelBooking(TripBooking $booking): void
     {
         DB::transaction(function () use ($booking) {
-            $trip = $booking->trip;
+            $trip = Trip::lockForUpdate()->findOrFail($booking->trip_id);
+            $wasWaitlist = $booking->booking_status === 'waitlist';
+
             $booking->update(['booking_status' => 'cancelled']);
+            $booking->payments()->where('status', 'pending')->update(['status' => 'cancelled']);
 
             if ($booking->bus_seat_id) {
                 BusSeat::where('id', $booking->bus_seat_id)->update(['is_occupied' => false]);
             }
 
-            $trip->decrement('occupied_spots', $booking->spots ?? 1);
+            if (!$wasWaitlist) {
+                $trip->decrement('occupied_spots', $booking->spots ?? 1);
+            }
         });
     }
 }

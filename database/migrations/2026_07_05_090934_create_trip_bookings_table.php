@@ -21,7 +21,7 @@ return new class extends Migration
             $table->foreignId('bus_seat_id')->nullable()->constrained()->nullOnDelete();
             $table->enum('payment_status', ['paid', 'pending', 'overdue'])->default('pending');
             $table->enum('document_status', ['complete', 'pending', 'in_review'])->default('pending');
-            $table->enum('booking_status', ['confirmed', 'pending', 'waitlist'])->default('pending');
+            $table->enum('booking_status', ['confirmed', 'pending', 'waitlist', 'cancelled'])->default('pending');
             $table->decimal('amount_paid', 10, 2)->default(0);
             $table->text('notes')->nullable();
             $table->timestamps();

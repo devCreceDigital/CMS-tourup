@@ -51,8 +51,9 @@
                             <label class="form-label">Sexo</label>
                             <select name="travelers[{{ $i }}][sex]" class="form-select">
                                 <option value="">Seleccionar</option>
-                                <option value="M">Masculino</option>
-                                <option value="F">Femenino</option>
+                                <option value="male">Masculino</option>
+                                <option value="female">Femenino</option>
+                                <option value="other">Otro</option>
                             </select>
                         </div>
                     </div>

@@ -28,9 +28,15 @@ class BookingController extends Controller
 
     private function getTrip(string $slug): Trip
     {
-        return Trip::where('slug', $slug)
+        $trip = Trip::where('slug', $slug)
             ->with(['category', 'pricingGroups.installments', 'accommodations', 'itineraryDays'])
             ->firstOrFail();
+
+        if (Setting::get('booking_enabled', 'true') !== 'true') {
+            abort(403, 'Las reservas están temporalmente deshabilitadas.');
+        }
+
+        return $trip;
     }
 
     public function step1(string $slug)
@@ -105,7 +111,7 @@ class BookingController extends Controller
             $rules["travelers.$i.email"] = 'nullable|email|max:255';
             $rules["travelers.$i.phone"] = 'nullable|string|max:20';
             $rules["travelers.$i.birth_date"] = 'nullable|date';
-            $rules["travelers.$i.sex"] = 'nullable|in:M,F';
+            $rules["travelers.$i.sex"] = 'nullable|in:male,female,other';
         }
 
         $validated = $request->validate($rules);
@@ -201,6 +207,7 @@ class BookingController extends Controller
                 'reference' => $booking->reference,
                 'trip_name' => $trip->name,
                 'trip_slug' => $slug,
+                'status' => $booking->booking_status,
             ]);
 
             return redirect()->route('public.booking.step8', $slug);

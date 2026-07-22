@@ -12,8 +12,13 @@
             <div class="feature-card__icon feature-card__icon--outline mx-auto mb-lg" style="width:8rem;height:8rem;font-size:4rem;">
                 <span class="material-symbols-outlined">check_circle</span>
             </div>
-            <h1 class="card__title" style="font-size:2.8rem;">¡Reserva confirmada!</h1>
-            <p class="card__text mb-lg">Tu reserva se ha registrado correctamente. Te hemos enviado un email con los detalles.</p>
+            @if(($confirmed['status'] ?? 'confirmed') === 'waitlist')
+                <h1 class="card__title" style="font-size:2.8rem;">Estás en lista de espera</h1>
+                <p class="card__text mb-lg">El viaje está completo, pero hemos registrado tu solicitud en la lista de espera. Te avisaremos por email si se liberan plazas.</p>
+            @else
+                <h1 class="card__title" style="font-size:2.8rem;">¡Reserva confirmada!</h1>
+                <p class="card__text mb-lg">Tu reserva se ha registrado correctamente. Te hemos enviado un email con los detalles.</p>
+            @endif
 
             <div class="booking-summary mb-lg" style="text-align:left;">
                 <div class="booking-summary__row">

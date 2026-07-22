@@ -11,8 +11,8 @@ return new class extends Migration
         Schema::table('trip_bookings', function (Blueprint $table) {
             $table->string('reference', 36)->nullable()->after('id')->index();
             $table->integer('spots')->default(1)->after('reference');
-            $table->string('pricing_group_snapshot')->nullable()->after('notes');
-            $table->string('extras_snapshot')->nullable()->after('pricing_group_snapshot');
+            $table->text('pricing_group_snapshot')->nullable()->after('notes');
+            $table->text('extras_snapshot')->nullable()->after('pricing_group_snapshot');
         });
     }
 
